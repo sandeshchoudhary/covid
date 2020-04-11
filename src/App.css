@@ -14,17 +14,17 @@
   display: flex;
   color: white;
   padding: 4px 16px;
-  position: absolute;
-  bottom: 0;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
 }
 
 .App-body {
   padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  height: calc(100vh - 142px);
+  overflow-y: scroll;
+}
+
+.Row > div {
+  margin: 16px 0;
 }
 

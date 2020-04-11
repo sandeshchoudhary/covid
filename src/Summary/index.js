@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Spinner, Text, Heading } from 'design-system';
+import { Card, Spinner, Text, Heading, Row, Column } from 'design-system';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import {
@@ -17,6 +17,14 @@ const query = {
       deaths,
       recovered } }
   `
+};
+
+const columnOptions = {
+  size: "12",
+  sizeXL: "6",
+  sizeL: "12",
+  sizeM: "6",
+  sizeS: "6"
 };
 
 const Summary = (props) => {
@@ -53,11 +61,11 @@ const Summary = (props) => {
      );
    };
    return (
-    <PieChart width={400} height={200} onMouseEnter={() => null}>
+    <PieChart width={200} height={200} onMouseEnter={() => null}>
         <Pie
           data={data}
           dataKey="value"
-          cx={200} 
+          cx={100} 
           cy={100} 
           labelLine={false}
           label={renderCustomizedLabel}
@@ -98,9 +106,7 @@ const Summary = (props) => {
     <Card
       shadow="medium"
       style={{
-        height: '100%',
         minHeight: '200px',
-        width: '45%',
         padding: '16px'
       }}
     >
@@ -114,11 +120,11 @@ const Summary = (props) => {
           <p>Error :(</p>
         )}
         {!loading && !error && (
-          <div style={{display: 'flex', justifyContent: 'flex-start'}}>
-            <div>
+          <Row>
+            <Column {...columnOptions}>
               {getChart(extractStats(entity, data))}
-            </div>
-            <div>
+            </Column>
+            <Column {...columnOptions}>
               <Heading appearance="subtle" size="m">
                 Total Patients
               </Heading>
@@ -126,8 +132,8 @@ const Summary = (props) => {
                 {extractStats(entity, data).confirmed}
               </Text>
               {getLegends(extractStats(entity, data))}
-            </div>
-          </div>
+            </Column>
+          </Row>
         )}
     </Card>
     );
