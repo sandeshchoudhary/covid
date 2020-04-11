@@ -4,3 +4,29 @@
   align-items: center;
   min-height: 200px;
 }
+
+.Summary-list-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Legend {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 4px;
+}
+
+.Legend--alert {
+  background-color: #d93737;
+}
+
+.Legend--primary {
+  background-color: #0070dd;
+}
+
+.Legend--success {
+  background-color: #2ea843;
+}
+

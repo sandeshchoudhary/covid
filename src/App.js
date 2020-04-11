@@ -1,20 +1,18 @@
 import React from 'react';
 import './App.css';
-import { Heading } from 'design-system';
 import Summary from './Summary';
+import Header from './Header';
+import Footer from './Footer';
 
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <Heading size="l" appearance="white">
-          Covid-19
-        </Heading>
-      </header>
+      <Header />
       <div className="App-body">
         <Summary entity="WORLD" />
         <Summary entity="INDIA" />
       </div>
+      <Footer />
     </div>
   );
 }

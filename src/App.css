@@ -1,7 +1,4 @@
-.App {
-}
-
-
+.App { }
 
 .App-header {
   background-color: #282c34;
@@ -9,6 +6,19 @@
   display: flex;
   color: white;
   padding: 4px 16px;
+}
+
+.App-footer {
+  background-color: #282c34;
+  height: 47px;
+  display: flex;
+  color: white;
+  padding: 4px 16px;
+  position: absolute;
+  bottom: 0;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
 .App-body {

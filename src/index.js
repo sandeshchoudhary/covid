@@ -1,20 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import 'design-system/css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './api';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+console.log(process.env)
+
+// if (process.env.NODE_SHELL_ENV === 'development') {
+//   ReactDOM.render(
+//     <React.StrictMode>
+//       <ApolloProvider client={client}>
+//         <Home />
+//       </ApolloProvider>
+//     </React.StrictMode>,
+//     document.getElementById('root')
+//   );
+// } else {
+  ReactDOM.render(
+    <React.StrictMode>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+// }
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

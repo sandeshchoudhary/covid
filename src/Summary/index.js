@@ -3,7 +3,7 @@ import { Card, Spinner, Text, Heading } from 'design-system';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import {
-  PieChart, Pie, Sector, Cell,
+  PieChart, Pie, Sector, Cell, Tooltip
 } from 'recharts';
 import './Summary.css';
 
@@ -55,7 +55,8 @@ const Summary = (props) => {
    return (
     <PieChart width={400} height={200} onMouseEnter={() => null}>
         <Pie
-          data={data} 
+          data={data}
+          dataKey="value"
           cx={200} 
           cy={100} 
           labelLine={false}
@@ -64,19 +65,29 @@ const Summary = (props) => {
           fill="#8884d8"
         >
           {
-            data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+            data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} key={index} />)
           }
         </Pie>
+        <Tooltip />
       </PieChart>
    )
   }
 
   const getLegends = stats => {
     return (
-      <ul>
-        <li>Active</li>
-        <li>Recovered</li>
-        <li>Deaths</li>
+      <ul className="Summary-list">
+        <li className="Summary-list-item" key="0">
+          <div className="Legend Legend--primary"></div>
+          <Text>Active - {stats.confirmed - stats.deaths - stats.recovered}</Text>
+        </li>
+        <li key="1" className="Summary-list-item">
+          <div className="Legend Legend--success"></div>
+          <Text>Recovered - {stats.recovered}</Text>
+        </li>
+        <li key="2" className="Summary-list-item">
+          <div className="Legend Legend--alert"></div>
+          <Text>Deaths - {stats.deaths}</Text>
+        </li>
       </ul>
     )
   }

@@ -19,12 +19,12 @@
   },
   "homepage": "https://sandeshchoudhary.github.io/covid",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run prepare && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepareDeploy": "npm run build && ./predeploy.sh",
-    "deploy": "gh-pages -d build"
+    "prepare": "./predeploy.sh",
+    "deploy": "npm run prepare && npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
