@@ -1,24 +1,12 @@
 import React from 'react';
 import { Card, Spinner, Text, Heading, Row, Column, Button } from 'design-system';
 import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import { useHistory } from "react-router-dom";
 import {
   PieChart, Pie, Sector, Cell, Tooltip
 } from 'recharts';
 import './Summary.css';
-
-const query = {
-  INDIA: gql`
-    {country(name: \"India\") { name, mostRecent { confirmed, deaths, recovered}}}
-  `,
-  WORLD: gql`
-    { summary{
-      confirmed,
-      deaths,
-      recovered } }
-  `
-};
+import { getQuery } from '../query';
 
 const columnOptions = {
   size: "12",
@@ -29,11 +17,11 @@ const columnOptions = {
 };
 
 const Summary = (props) => {
-  const { entity } = props;
+  const { entity, type, showLink } = props;
   let history = useHistory();
 
   const extractStats = (entity, result) => {
-    const stats = entity === 'INDIA' ? result.country.mostRecent : result.summary;
+    const stats = type === 'country' ? result.country.mostRecent : type === 'state' ? result.state.mostRecent : result.summary;
     return stats;
   }
 
@@ -103,7 +91,7 @@ const Summary = (props) => {
   }
 
   const handleMore = entity => {
-    if(entity === 'INDIA') {
+    if(entity === 'india') {
       history.push('/india');
     } else {
       history.push('/world');
@@ -111,7 +99,7 @@ const Summary = (props) => {
   }
 
 
-  const { loading, error, data } = useQuery(query[entity]);
+  const { loading, error, data } = useQuery(getQuery(type, entity));
   return (
     <Card
       shadow="medium"
@@ -120,7 +108,7 @@ const Summary = (props) => {
         padding: '16px'
       }}
     >
-      <Text>{entity} STATISTICS</Text>
+      <Text>{entity.toUpperCase()} STATISTICS</Text>
         {loading && (
           <div className="Spinner-container">
             <Spinner size="large" appearance="primary" />
@@ -145,9 +133,11 @@ const Summary = (props) => {
                 {getLegends(extractStats(entity, data))}
               </Column>
             </Row>
-            <div>
-              <Button appearance="primary" onClick={() => handleMore(entity)}>Show More</Button>
-            </div>
+            {showLink && (
+              <div>
+                <Button appearance="primary" onClick={() => handleMore(entity)}>Show More</Button>
+              </div>
+            )}
           </React.Fragment>
         )}
     </Card>

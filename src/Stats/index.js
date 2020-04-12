@@ -6,60 +6,6 @@ import { useQuery } from '@apollo/react-hooks';
 import './Stats.css';
 import { ComposedChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid, Area, Bar, Line, ResponsiveContainer } from 'recharts';
 
-const schema = [
-  {
-    width: 200,
-    pinned: false ? 'LEFT' : undefined,
-    template: ({ x, rowIndex }) => (
-      <div className="Stat-table-cell">
-        {x}
-      </div>
-    ),
-    get: ({ name }) => ({
-      x: name,
-    }),
-    header: () => <div className="Stat-table-cell"><Text weight="strong">Name</Text></div>,
-  },
-  {
-    width: 100,
-    pinned: false ? 'LEFT' : undefined,
-    template: ({ x, rowIndex }) => (
-      <div className="Stat-table-cell">
-        {x}
-      </div>
-    ),
-    get: ({ mostRecent }) => ({
-      x: mostRecent.confirmed,
-    }),
-    header: () => <div className="Stat-table-cell"><Text weight="strong">Confirmed</Text></div>,
-  },
-  {
-    width: 100,
-    pinned: false ? 'LEFT' : undefined,
-    template: ({ x, rowIndex }) => (
-      <div className="Stat-table-cell">
-        {x}
-      </div>
-    ),
-    get: ({ mostRecent }) => ({
-      x: mostRecent.recovered,
-    }),
-    header: () => <div className="Stat-table-cell"><Text weight="strong">Recovered</Text></div>,
-  },
-  {
-    width: 100,
-    pinned: false ? 'LEFT' : undefined,
-    template: ({ x, rowIndex }) => (
-      <div className="Stat-table-cell">
-        {x}
-      </div>
-    ),
-    get: ({ mostRecent }) => ({
-      x: mostRecent.deaths,
-    }),
-    header: () => <div className="Stat-table-cell"><Text weight="strong">Deaths</Text></div>,
-  }
-]
 
 const columnOptions = {
   size: "12",
@@ -73,8 +19,67 @@ const Stats = props => {
   const { entity } = props;
   let history = useHistory();
 
+  const handleDrill = id => {
+    history.push(`/${entity}/detail/${id}`)
+  }
+
+  const schema = [
+    {
+      width: 200,
+      pinned: false ? 'LEFT' : undefined,
+      template: ({ x, rowIndex }) => (
+        <div className="Stat-table-cell">
+          <Link onClick={() => handleDrill(x)}>{x}</Link>
+        </div>
+      ),
+      get: ({ name }) => ({
+        x: name,
+      }),
+      header: () => <div className="Stat-table-cell"><Text weight="strong">Name</Text></div>,
+    },
+    {
+      width: 100,
+      pinned: false ? 'LEFT' : undefined,
+      template: ({ x, rowIndex }) => (
+        <div className="Stat-table-cell">
+          {x}
+        </div>
+      ),
+      get: ({ mostRecent }) => ({
+        x: mostRecent.confirmed,
+      }),
+      header: () => <div className="Stat-table-cell"><Text weight="strong">Confirmed</Text></div>,
+    },
+    {
+      width: 100,
+      pinned: false ? 'LEFT' : undefined,
+      template: ({ x, rowIndex }) => (
+        <div className="Stat-table-cell">
+          {x}
+        </div>
+      ),
+      get: ({ mostRecent }) => ({
+        x: mostRecent.recovered,
+      }),
+      header: () => <div className="Stat-table-cell"><Text weight="strong">Recovered</Text></div>,
+    },
+    {
+      width: 100,
+      pinned: false ? 'LEFT' : undefined,
+      template: ({ x, rowIndex }) => (
+        <div className="Stat-table-cell">
+          {x}
+        </div>
+      ),
+      get: ({ mostRecent }) => ({
+        x: mostRecent.deaths,
+      }),
+      header: () => <div className="Stat-table-cell"><Text weight="strong">Deaths</Text></div>,
+    }
+  ]
+
   const getData = (entity, data = {}) => {
-    return entity === 'INDIA' ? data.states : data.countries;
+    return entity === 'india' ? data.states : data.countries;
   }
 
   const { loading, error, data } = useQuery(query.stats[entity]);
@@ -85,11 +90,11 @@ const Stats = props => {
     <div className="Stats-container">
       <header>
         <BreadcrumbsWrapper
-          heading={entity === 'INDIA' ? 'State wise Data' : 'Country wise Data'}
+          heading={entity === 'india' ? 'State wise Data' : 'Country wise Data'}
         >
           <Breadcrumb>
             <div className="Breadcrumb-link">
-              <Link onClick={() => history.push('/')}>Home</Link>
+              <Link onClick={() => history.push('/')}>HOME</Link>
             </div>
           </Breadcrumb>
         </BreadcrumbsWrapper>

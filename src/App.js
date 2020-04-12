@@ -17,10 +17,10 @@ const App = () => {
       <div className="App-body">
         <Row>
           <Column {...columnOptions}>
-            <Summary entity="WORLD" />
+            <Summary entity="world" type="world" showLink={true} />
           </Column>
           <Column {...columnOptions}>
-            <Summary entity="INDIA" />
+            <Summary entity="india" type="country" showLink={true} />
           </Column>
         </Row>
       </div>

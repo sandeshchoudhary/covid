@@ -8,6 +8,7 @@ import { client } from './api';
 import Header from './Header';
 import Footer from './Footer';
 import Stats from './Stats';
+import Detail from './Detail';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,11 +26,17 @@ ReactDOM.render(
             <Route exact path="/">
               <App />
             </Route>
+            <Route path="/india/detail/:id" exact>
+              <Detail entity="india" />
+            </Route>
+            <Route path="/world/detail/:id" exact>
+              <Detail entity="world" />
+            </Route>
             <Route path="/india">
-              <Stats entity="INDIA" />
+              <Stats entity="india" />
             </Route>
             <Route path="/world">
-              <Stats entity="WORLD" />
+              <Stats entity="world" />
             </Route>
           </Switch>
         </Router>
