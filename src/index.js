@@ -9,6 +9,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Stats from './Stats';
 import Detail from './Detail';
+import References from './References';
 import {
   BrowserRouter as Router,
   Switch,
@@ -37,6 +38,9 @@ ReactDOM.render(
             </Route>
             <Route path="/world">
               <Stats entity="world" />
+            </Route>
+            <Route path="/references">
+              <References />
             </Route>
           </Switch>
         </Router>
