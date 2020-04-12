@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, Spinner, Text, Heading, Row, Column } from 'design-system';
+import { Card, Spinner, Text, Heading, Row, Column, Button } from 'design-system';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { useHistory } from "react-router-dom";
 import {
   PieChart, Pie, Sector, Cell, Tooltip
 } from 'recharts';
@@ -29,6 +30,7 @@ const columnOptions = {
 
 const Summary = (props) => {
   const { entity } = props;
+  let history = useHistory();
 
   const extractStats = (entity, result) => {
     const stats = entity === 'INDIA' ? result.country.mostRecent : result.summary;
@@ -100,6 +102,14 @@ const Summary = (props) => {
     )
   }
 
+  const handleMore = entity => {
+    if(entity === 'INDIA') {
+      history.push('/india');
+    } else {
+      history.push('/world');
+    }
+  }
+
 
   const { loading, error, data } = useQuery(query[entity]);
   return (
@@ -120,20 +130,25 @@ const Summary = (props) => {
           <p>Error :(</p>
         )}
         {!loading && !error && (
-          <Row>
-            <Column {...columnOptions}>
-              {getChart(extractStats(entity, data))}
-            </Column>
-            <Column {...columnOptions}>
-              <Heading appearance="subtle" size="m">
-                Total Patients
-              </Heading>
-              <Text appearance="destructive" style={{fontSize: '40px'}}>
-                {extractStats(entity, data).confirmed}
-              </Text>
-              {getLegends(extractStats(entity, data))}
-            </Column>
-          </Row>
+          <React.Fragment>
+            <Row>
+              <Column {...columnOptions}>
+                {getChart(extractStats(entity, data))}
+              </Column>
+              <Column {...columnOptions}>
+                <Heading appearance="subtle" size="m">
+                  Total Patients
+                </Heading>
+                <Text appearance="destructive" style={{fontSize: '40px'}}>
+                  {extractStats(entity, data).confirmed}
+                </Text>
+                {getLegends(extractStats(entity, data))}
+              </Column>
+            </Row>
+            <div>
+              <Button appearance="primary" onClick={() => handleMore(entity)}>Show More</Button>
+            </div>
+          </React.Fragment>
         )}
     </Card>
     );

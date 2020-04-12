@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import Summary from './Summary';
-import Header from './Header';
-import Footer from './Footer';
 import { Row, Column } from 'design-system';
 
 const columnOptions = {
@@ -16,7 +14,6 @@ const columnOptions = {
 const App = () => {
   return (
     <div className="App">
-      <Header />
       <div className="App-body">
         <Row>
           <Column {...columnOptions}>
@@ -27,7 +24,6 @@ const App = () => {
           </Column>
         </Row>
       </div>
-      <Footer />
     </div>
   );
 }
