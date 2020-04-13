@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, Text } from 'design-system';
+import { useHistory } from 'react-router-dom';
 
-const Footer = () => {
+const Footer = props => {
   const year = new Date().getFullYear();
+  let history = useHistory();
 
   return (
     <footer className="App-footer">
@@ -12,7 +14,7 @@ const Footer = () => {
       >
         &copy; Copyright { year } Sandesh Choudhary
       </Text>
-      <Link href="/covid/references">References</Link>
+      <Link onClick={() => history.push('/references')}>References</Link>
     </footer>
   );
 }

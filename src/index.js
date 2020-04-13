@@ -13,8 +13,7 @@ import References from './References';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 ReactDOM.render(
@@ -43,8 +42,8 @@ ReactDOM.render(
               <References />
             </Route>
           </Switch>
+          <Footer />
         </Router>
-        <Footer />
       </div>
     </ApolloProvider>
   </React.StrictMode>,
