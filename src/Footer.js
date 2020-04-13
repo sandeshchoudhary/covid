@@ -12,7 +12,7 @@ const Footer = () => {
       >
         &copy; Copyright { year } Sandesh Choudhary
       </Text>
-      <Link href="/references">References</Link>
+      <Link href="/covid/references">References</Link>
     </footer>
   );
 }
