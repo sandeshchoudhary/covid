@@ -1,0 +1,11 @@
+.References-container {
+    height: calc(100vh - 110px);
+}
+
+.References-table {
+    padding: 0 20px;
+}
+
+.References-table > .Heading {
+    margin-bottom: var(--spacing);
+}

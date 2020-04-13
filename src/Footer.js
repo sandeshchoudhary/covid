@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'design-system';
+import { Link, Text } from 'design-system';
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -12,6 +12,7 @@ const Footer = () => {
       >
         &copy; Copyright { year } Sandesh Choudhary
       </Text>
+      <Link href="/references">References</Link>
     </footer>
   );
 }
