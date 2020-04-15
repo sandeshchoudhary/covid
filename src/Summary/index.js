@@ -135,7 +135,11 @@ const Summary = (props) => {
             </Row>
             {showLink && (
               <div>
-                <Button appearance="primary" onClick={() => handleMore(entity)}>Show More</Button>
+                <Button appearance="primary" onClick={() => handleMore(entity)}
+                  icon="trending_flat"
+                  iconAlign="right">
+                  Show More
+                </Button>
               </div>
             )}
           </React.Fragment>

@@ -17,7 +17,7 @@ const query = {
       {countries(names: []){ name, mostRecent { confirmed, deaths, recovered}}}    
     `,
     india: gql`
-      {states(country: "India", names: []){ name, mostRecent { confirmed, deaths, recovered, growthRate}}}
+      {states(country: "India", names: []){ name, mostRecent { confirmed, deaths, recovered}}}
     `
   }
 }
