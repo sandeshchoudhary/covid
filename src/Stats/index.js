@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, Breadcrumb, BreadcrumbsWrapper, Table, Text, Row, Column, Spinner } from 'design-system';
+import { Link, Breadcrumb, BreadcrumbsWrapper, Table, Text, Row, Column, Spinner, Input } from 'design-system';
 import { useHistory } from "react-router-dom";
 import query from '../query';
 import { useQuery } from '@apollo/react-hooks';
 import './Stats.css';
 import { ComposedChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid, Area, Bar, Line, ResponsiveContainer } from 'recharts';
+const { useEffect, useState } = React;
 
 
 const columnOptions = {
@@ -18,6 +19,11 @@ const columnOptions = {
 const Stats = props => {
   const { entity } = props;
   let history = useHistory();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = value => {
+    setSearchQuery(value);
+  }
 
   const handleDrill = id => {
     history.push(`/${entity}/detail/${id}`)
@@ -79,12 +85,14 @@ const Stats = props => {
   ]
 
   const getData = (entity, data = {}) => {
-    return entity === 'india' ? data.states : data.countries;
+    const list = entity === 'india' ? data.states : data.countries;
+    if (!list) return [];
+    return list.filter(item => {
+      return item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+    });
   }
 
   const { loading, error, data } = useQuery(query.stats[entity]);
-  console.log(loading, error, data);
-
 
   return (
     <div className="Stats-container">
@@ -107,10 +115,20 @@ const Stats = props => {
       {!error && (
         <div className="Stats-body">
           <Row>
+            <Input clearButton={true}
+              value={searchQuery}
+              icon="search"
+              name="input"
+              placeholder="Search"
+              onChange={ev => handleSearch(ev.target.value) }
+              onClear={() => handleSearch('')}
+              info="Search on name" />
+          </Row>
+          <Row>
             <Column {...columnOptions}>
               <Table
                 style={{
-                  maxHeight: 'calc(100vh - 252px)'
+                  maxHeight: 'calc(100vh - 300px)'
                 }}
                 loadMore={() => null}
                 loading={loading}
