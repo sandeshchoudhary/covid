@@ -1,0 +1,150 @@
+{
+  "Andhra Pradesh": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/AndhraPradesh.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Arunachal Pradesh": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Arunachal.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Assam": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Assam.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Bihar": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Bihar.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Chhattisgarh": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Chhattisgarh.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Goa": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Goa.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Gujarat": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Gujarat.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Haryana": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Haryana.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Himachal Pradesh": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Himachal.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Jharkhand": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Jharkhand.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Karnataka": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Karnataka.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Kerala": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Kerala.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Madhya Pradesh": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/MadhyaPradesh.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Maharashtra": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Maharashtra.topojson",
+    "viewBox": "100 100 200 100"
+  },
+  "Manipur": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Manipur.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Meghalaya": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Meghalaya.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Mizoram": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Mizoram.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Nagaland": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Nagaland.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Odisha": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Orissa.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Punjab": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Punjab.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Rajasthan": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Rajasthan.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Sikkim": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Sikkim.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Tamil Nadu": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/TamilNadu.topojson",
+    "viewBox": "50 150 100 400"
+  },
+  "Telangana": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Telangana.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Tripura": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Tripura.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Uttarakhand": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Uttarakhand.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Uttar Pradesh": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/UttarPradesh.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "West Bengal": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/WestBengal.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Andaman and Nicobar Islands": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Andaman.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Chandigarh": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Chandigarh.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Dadra and Nagar Haveli": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Dadra.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Daman and Diu": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Daman.topojson",
+    "viewBox": "0 0 800 600"
+  },
+  "Delhi": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Chhattisgarh.topojson",
+    "viewBox": "100 100 200 100"
+  },
+  "Jammu and Kashmir": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Delhi.topojson",
+    "viewBox": ""
+  },
+  "Ladakh": {
+    "url": null,
+    "viewBox": ""
+  },
+  "Lakshadweep": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Lakshadweep.topojson",
+    "viewBox": ""
+  },
+  "Puducherry": {
+    "url": "https://raw.githubusercontent.com/shklnrj/IndiaStateTopojsonFiles/master/Puducherry.topojson",
+    "viewBox": ""
+  }
+}
