@@ -102,7 +102,15 @@ const data = [
   {
     name: "NDTV Covid-19 Data",
     link: "https://edata.ndtv.com/cricket/coronavirus/data.json"
-  }
+  },
+  {
+    name: "COVID19-India API",
+    link: "https://api.covid19india.org/"
+  },
+  {
+    name: "COVID19-India",
+    link: "https://www.covid19india.org/"
+  },
 ];
 
 const References = () => {

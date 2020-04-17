@@ -5,6 +5,7 @@ import {
 } from 'react-simple-maps';
 import query, {getQuery} from '../../query';
 import { useQuery } from '@apollo/react-hooks';
+const { useEffect, useState } = React;
 const statesMapping = require('./statesMapping.json');
 const latLong = require('./latLong.json');
 
@@ -38,6 +39,7 @@ const geoUrl =
   "https://rawgit.com/Anujarya300/bubble_maps/master/data/geography-data/india.topo.json"
 
   const HeatMapIndia = (props) => {
+    const [stroke, setStroke] = useState('white');
     const { loading, error, data } = useQuery(query.stats.india);
     const { loading : statsLoading, error : statsError, data: statsData } = useQuery(getQuery('country', 'india'));
     console.log(statsData)
@@ -62,8 +64,13 @@ const geoUrl =
             <Geographies geography={geoUrl}>
               {({geographies}) => geographies.map(geo => {
                 const current = mapData.find(s => s.id === geo.id);
+                console.log(current)
                 return (
                   <Geography key={geo.rsmKey} geography={geo}
+                    stroke={ current && current.id === stroke ? 'red' : 'white' }
+                    className="Geography-path"
+                    onMouseEnter={() => setStroke(current.id)}
+                    onMouseLeave={() => setStroke(null)}
                     fill={current ? colorStyle(current.mostRecent.confirmed, statsData.country.mostRecent.confirmed) : DEFAULT_COLOR}
                   />
                 )
