@@ -11,7 +11,7 @@ import {
   preprocessTimeseries,
   parseStateTimeseries,
 } from './Map/common-functions';
-// import MapExplorer from './Map';
+import MapExplorer from './Map';
 
 const columnOptions = {
   size: "12",
@@ -127,7 +127,7 @@ const App = () => {
       <div className="App-body">
         <Row>
           <Column {...columnOptions}>
-            {/* <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
               {fetched && (
                 <MapExplorer
                   forwardRef={refs[1]}
@@ -140,7 +140,7 @@ const App = () => {
                   isCountryLoaded={true}
                 />
               )}
-            </div> */}
+            </div>
           </Column>
           <Column {...columnOptions}>
             <div className="p-6">
