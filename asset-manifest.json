@@ -1,22 +1,31 @@
 {
   "files": {
-    "main.css": "/covid/static/css/main.6d96cdd7.chunk.css",
-    "main.js": "/covid/static/js/main.7bd9fd0f.chunk.js",
-    "main.js.map": "/covid/static/js/main.7bd9fd0f.chunk.js.map",
+    "main.css": "/covid/static/css/main.d046c1d8.chunk.css",
+    "main.js": "/covid/static/js/main.530d3d49.chunk.js",
+    "main.js.map": "/covid/static/js/main.530d3d49.chunk.js.map",
     "runtime-main.js": "/covid/static/js/runtime-main.f8e3727a.js",
     "runtime-main.js.map": "/covid/static/js/runtime-main.f8e3727a.js.map",
-    "static/js/2.99d01208.chunk.js": "/covid/static/js/2.99d01208.chunk.js",
-    "static/js/2.99d01208.chunk.js.map": "/covid/static/js/2.99d01208.chunk.js.map",
+    "static/js/2.c575fd7b.chunk.js": "/covid/static/js/2.c575fd7b.chunk.js",
+    "static/js/2.c575fd7b.chunk.js.map": "/covid/static/js/2.c575fd7b.chunk.js.map",
     "index.html": "/covid/index.html",
-    "precache-manifest.963b9aa994ef3ad2e9eaae3593dda0a4.js": "/covid/precache-manifest.963b9aa994ef3ad2e9eaae3593dda0a4.js",
+    "precache-manifest.b00ddf07cc786e639f151a11b25ef073.js": "/covid/precache-manifest.b00ddf07cc786e639f151a11b25ef073.js",
     "service-worker.js": "/covid/service-worker.js",
-    "static/css/main.6d96cdd7.chunk.css.map": "/covid/static/css/main.6d96cdd7.chunk.css.map",
-    "static/js/2.99d01208.chunk.js.LICENSE.txt": "/covid/static/js/2.99d01208.chunk.js.LICENSE.txt"
+    "static/css/main.d046c1d8.chunk.css.map": "/covid/static/css/main.d046c1d8.chunk.css.map",
+    "static/js/2.c575fd7b.chunk.js.LICENSE.txt": "/covid/static/js/2.c575fd7b.chunk.js.LICENSE.txt",
+    "static/media/breath.345b8488.svg": "/covid/static/media/breath.345b8488.svg",
+    "static/media/disinfectant.1ba907fc.svg": "/covid/static/media/disinfectant.1ba907fc.svg",
+    "static/media/distance.70610995.svg": "/covid/static/media/distance.70610995.svg",
+    "static/media/facemask.d87bfb97.svg": "/covid/static/media/facemask.d87bfb97.svg",
+    "static/media/fever.d1df4e9e.svg": "/covid/static/media/fever.d1df4e9e.svg",
+    "static/media/handwash.ef9b2c45.svg": "/covid/static/media/handwash.ef9b2c45.svg",
+    "static/media/lungs.63e8ffa6.svg": "/covid/static/media/lungs.63e8ffa6.svg",
+    "static/media/spread.2497ba76.svg": "/covid/static/media/spread.2497ba76.svg",
+    "static/media/touch.9110ed3a.svg": "/covid/static/media/touch.9110ed3a.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f8e3727a.js",
-    "static/js/2.99d01208.chunk.js",
-    "static/css/main.6d96cdd7.chunk.css",
-    "static/js/main.7bd9fd0f.chunk.js"
+    "static/js/2.c575fd7b.chunk.js",
+    "static/css/main.d046c1d8.chunk.css",
+    "static/js/main.530d3d49.chunk.js"
   ]
 }
