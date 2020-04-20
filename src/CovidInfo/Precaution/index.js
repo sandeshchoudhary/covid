@@ -38,7 +38,7 @@ const Precaution = () => {
   const getPrecautions = () => {
     return precautionList.map((item, index) => {
       return (
-        <Column {...columnOptions}>
+        <Column {...columnOptions} key={index}>
           <div>
             {item.logo}
             <Text>{item.info}</Text>

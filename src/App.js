@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import './App.css';
 import Summary from './Summary';
-import { Row, Column, Message, Text, Heading } from 'design-system';
-import HeatMapIndia from './HeatMaps/India';
+import { Row, Column } from 'design-system';
 import {MAP_META} from './Map/constants';
 import axios from 'axios';
 import {
@@ -27,14 +26,9 @@ const App = () => {
   const [stateDistrictWiseData, setStateDistrictWiseData] = useState({});
   const [stateTestData, setStateTestData] = useState({});
   const [fetched, setFetched] = useState(false);
-  const [graphOption, setGraphOption] = useState(1);
   const [lastUpdated, setLastUpdated] = useState('');
-  const [timeseries, setTimeseries] = useState({});
   const [activeStateCode, setActiveStateCode] = useState('TT'); // TT -> India
-  const [timeseriesMode, setTimeseriesMode] = useState(true);
-  const [timeseriesLogMode, setTimeseriesLogMode] = useState(false);
   const [regionHighlighted, setRegionHighlighted] = useState(undefined);
-  const [showUpdates, setShowUpdates] = useState(false);
 
   useEffect(() => {
     if (fetched === false) {
@@ -56,9 +50,6 @@ const App = () => {
         axios.get('https://api.covid19india.org/state_test_data.json'),
       ]);
       setStates(data.statewise);
-      // const ts = parseStateTimeseries(statesDailyResponse);
-      // ts['TT'] = preprocessTimeseries(data.cases_time_series); // TT -> India
-      // setTimeseries(ts);
       setLastUpdated(data.statewise[0].lastupdatedtime);
       const testData = stateTestData.states_tested_data.reverse();
       const totalTest = data.tested[data.tested.length - 1];

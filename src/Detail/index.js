@@ -3,7 +3,6 @@ import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table } from '
 import { useHistory, useParams } from "react-router-dom";
 import Summary from '../Summary';
 import './Detail.css';
-import HeatMapIndiaState from '../HeatMaps/InidaState';
 import axios from 'axios';
 const { useEffect, useState } = React;
 
@@ -112,9 +111,6 @@ const Detail = props => {
             </Column>
           )}
         </Row>
-        {/* <div style={{padding: '50px'}}>
-          <HeatMapIndiaState state={params.id} />
-        </div> */}
       </div>
     </div>
   );
