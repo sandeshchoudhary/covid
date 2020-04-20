@@ -16,15 +16,29 @@ const getRegionFromState = (state) => {
 const getRegionFromDistrict = (districtData, name) => {
   if (!districtData) return;
   const region = {...districtData};
-  if (!region.name) region.name = name;
+  if (!region.name) region.name = region.district;
   return region;
 };
+
+const getStateData = (states, name) => {
+  const index = states.findIndex(item => {
+    return item.state === name;
+  });
+  return index > -1 ? states[index] : null;
+}
+
+const getDistrictData = (districts, name) => {
+  const index = districts.findIndex(item => {
+    return item.district === name;
+  });
+  return index > -1 ? districts[index] : null;
+}
 
 function MapExplorer({
   forwardRef,
   mapMeta,
   states,
-  stateDistrictWiseData,
+  stateDistrictWiseDataV2,
   stateTestData,
   regionHighlighted,
   onMapHighlightChange,
@@ -56,22 +70,24 @@ function MapExplorer({
         acc[state.state] = state.confirmed;
         return acc;
       }, {});
+      console.log(currentMapData);
     } else if (currentMap.mapType === MAP_TYPES.STATE) {
       const districtWiseData = (
-        stateDistrictWiseData[currentMap.name] || {districtData: {}}
+        getStateData(stateDistrictWiseDataV2, currentMap.name) || {districtData: {}}
       ).districtData;
-      currentMapData = Object.keys(districtWiseData).reduce((acc, district) => {
-        const confirmed = parseInt(districtWiseData[district].confirmed);
+
+      currentMapData = districtWiseData.reduce((acc, district) => {
+        const confirmed = parseInt(district.confirmed);
         statistic.total += confirmed;
         if (confirmed > statistic.maxConfirmed) {
           statistic.maxConfirmed = confirmed;
         }
-        acc[district] = districtWiseData[district].confirmed;
+        acc[district.district] = district.confirmed;
         return acc;
       }, {});
     }
     return [statistic, currentMapData];
-  }, [currentMap, states, stateDistrictWiseData]);
+  }, [currentMap, states, stateDistrictWiseDataV2]);
 
   const setHoveredRegion = useCallback(
     (name, currentMap) => {
@@ -83,10 +99,9 @@ function MapExplorer({
         setPanelRegion(region);
         onMapHighlightChange(region);
       } else if (currentMap.mapType === MAP_TYPES.STATE) {
-        const state = stateDistrictWiseData[currentMap.name] || {
-          districtData: {},
-        };
-        let districtData = state.districtData[name];
+        
+        const state = getStateData(stateDistrictWiseDataV2, currentMap.name) || {districtData: {}};
+        let districtData = getDistrictData(state.districtData, name);
         if (!districtData) {
           districtData = {
             confirmed: 0,
@@ -95,6 +110,7 @@ function MapExplorer({
             recovered: 0,
           };
         }
+        // console.log(districtData, name)
         setCurrentHoveredRegion(getRegionFromDistrict(districtData, name));
         const panelRegion = getRegionFromState(
           states.find((state) => currentMap.name === state.state)
@@ -103,7 +119,7 @@ function MapExplorer({
         if (onMapHighlightChange) onMapHighlightChange(panelRegion);
       }
     },
-    [states, stateDistrictWiseData, onMapHighlightChange]
+    [states, stateDistrictWiseDataV2, onMapHighlightChange]
   );
 
   useEffect(() => {
@@ -138,17 +154,17 @@ function MapExplorer({
       if (newMap.mapType === MAP_TYPES.COUNTRY) {
         setHoveredRegion(states[0].state, newMap);
       } else if (newMap.mapType === MAP_TYPES.STATE) {
-        const {districtData} = stateDistrictWiseData[name] || {};
-        const topDistrict = Object.keys(districtData)
-          .filter((name) => name !== 'Unknown')
+        const {districtData} = getStateData(stateDistrictWiseDataV2, name) || {};
+        const topDistrict = districtData
+          .filter((district) => district.district !== 'Unknown')
           .sort((a, b) => {
-            return districtData[b].confirmed - districtData[a].confirmed;
-          })[0];
-        setHoveredRegion(topDistrict, newMap);
-        setSelectedRegion(topDistrict);
+            return b.confirmed - a.confirmed;
+            })[0];
+        setHoveredRegion(topDistrict.district, newMap);
+        setSelectedRegion(topDistrict.district);
       }
     },
-    [setHoveredRegion, stateDistrictWiseData, states]
+    [setHoveredRegion, stateDistrictWiseDataV2, states]
   );
 
   const {name, lastupdatedtime} = currentHoveredRegion;

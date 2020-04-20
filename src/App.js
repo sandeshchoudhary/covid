@@ -23,7 +23,8 @@ const columnOptions = {
 
 const App = () => {
   const [states, setStates] = useState([]);
-  const [stateDistrictWiseData, setStateDistrictWiseData] = useState({});
+  // const [stateDistrictWiseData, setStateDistrictWiseData] = useState({});
+  const [stateDistrictWiseDataV2, setStateDistrictWiseDataV2] = useState({});
   const [stateTestData, setStateTestData] = useState({});
   const [fetched, setFetched] = useState(false);
   const [lastUpdated, setLastUpdated] = useState('');
@@ -40,15 +41,14 @@ const App = () => {
     try {
       const [
         {data},
-        stateDistrictWiseResponse,
-        {data: statesDailyResponse},
         {data: stateTestData},
+        {data: stateDistrictWiseResponseV2}
       ] = await Promise.all([
         axios.get('https://api.covid19india.org/data.json'),
-        axios.get('https://api.covid19india.org/state_district_wise.json'),
-        axios.get('https://api.covid19india.org/states_daily.json'),
         axios.get('https://api.covid19india.org/state_test_data.json'),
+        axios.get('https://api.covid19india.org/v2/state_district_wise.json')
       ]);
+      console.log(stateDistrictWiseResponseV2)
       setStates(data.statewise);
       setLastUpdated(data.statewise[0].lastupdatedtime);
       const testData = stateTestData.states_tested_data.reverse();
@@ -60,7 +60,7 @@ const App = () => {
         state: 'Total', // India
       });
       setStateTestData(testData);
-      setStateDistrictWiseData(stateDistrictWiseResponse.data);
+      setStateDistrictWiseDataV2(stateDistrictWiseResponseV2);
       setFetched(true);
     } catch (err) {
       console.log(err);
@@ -97,7 +97,7 @@ const App = () => {
                   forwardRef={refs[1]}
                   mapMeta={MAP_META.India}
                   states={states}
-                  stateDistrictWiseData={stateDistrictWiseData}
+                  stateDistrictWiseDataV2={stateDistrictWiseDataV2}
                   stateTestData={stateTestData}
                   regionHighlighted={regionHighlighted}
                   onMapHighlightChange={onMapHighlightChange}
