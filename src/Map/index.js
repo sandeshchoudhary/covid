@@ -3,11 +3,10 @@ import ChoroplethMap from './choropleth';
 import {MAP_TYPES, MAP_META} from './constants';
 import {formatDate, formatDateAbsolute, formatNumber} from './common-functions';
 import {formatDistance, format, parse} from 'date-fns';
-import { Heading, Message, Row, Column, Button } from 'design-system';
+import { Heading, Message, Row, Column, Button, Subheading } from 'design-system';
 import './Map.css';
 
 const getRegionFromState = (state) => {
-  // debugger
   if (!state) return;
   const region = {...state};
   if (!region.name) region.name = region.state;
@@ -171,13 +170,12 @@ function MapExplorer({
       
       <div className="Map-header">
         <Heading size="l">{currentMap.name} Map</Heading>
-        <Heading appearance="subtle" size="m">
+        <Subheading appearance="subtle" size="m">
           {window.innerWidth <= 769 ? 'Tap' : 'Hover'} over a{' '}
             {currentMap.mapType === MAP_TYPES.COUNTRY ? 'state/UT' : 'district'}{' '}
             for more details
-        </Heading>
+        </Subheading>
       </div>
-
 
       <div className="Map-stats">
         <div className="Map-stats-item fadeInUp" style={{animationDelay: '2s'}}>

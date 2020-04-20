@@ -196,7 +196,7 @@ function ChoroplethMap({
 
   const highlightRegionInMap = (name) => {
     const paths = d3.selectAll('.path-region');
-    paths.classed('map-hover', (d, i, nodes) => {
+    paths.classed('Map--hover', (d, i, nodes) => {
       const propertyField =
         'district' in d.properties
           ? propertyFieldMap['state']
