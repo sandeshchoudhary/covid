@@ -10,7 +10,7 @@ import Footer from './Footer';
 import StatsData from './Stats';
 import Detail from './Detail';
 import References from './References';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
