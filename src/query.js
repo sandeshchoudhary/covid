@@ -19,7 +19,40 @@ const query = {
     india: gql`
       {states(country: "India", names: []){ name, mostRecent { confirmed, deaths, recovered}}}
     `
-  }
+  },
+  districts: gql`
+    {districts { state, districtData {district, confirmed, lastupdatedtime} }}
+  `,
+  india: gql`
+  {india {
+    statewise {active, confirmed, deaths, deltaconfirmed, deltadeaths, deltarecovered, lastupdatedtime, recovered, state, statecode, statenotes},
+    tested {positivecasesfromsamplesreported, samplereportedtoday, source, testsconductedbyprivatelabs, totalindividualstested, totalpositivecases, totalsamplestested, updatetimestamp}
+  }}
+  `,
+  tests: gql`
+  {tests {negative,
+    numcallsstatehelpline,
+    numicubeds,
+    numisolationbeds,
+    numventilators,
+    positive,
+    positiveratebytests,
+    source,
+    source2,
+    state,
+    testsperthousand,
+    totalpeopleinquarantine,
+    totalpeoplereleasedfromquarantine,
+    totaltested,
+    unconfirmed,
+    updatedon,}}
+  `,
+  world: gql`
+    { summary{
+      confirmed,
+      deaths,
+      recovered } }
+  `
 }
 
 export const getQuery = (type, id) => {
