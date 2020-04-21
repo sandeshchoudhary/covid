@@ -13,7 +13,7 @@ function legend({
   marginLeft = 0,
   ticks = width / 64,
   tickFormat,
-  tickValues,
+  tickValues
 } = {}) {
   const svg = d3
     .create('svg')
@@ -34,11 +34,7 @@ function legend({
   if (color.interpolate) {
     const n = Math.min(color.domain().length, color.range().length);
 
-    x = color
-      .copy()
-      .rangeRound(
-        d3.quantize(d3.interpolate(marginLeft, width - marginRight), n)
-      );
+    x = color.copy().rangeRound(d3.quantize(d3.interpolate(marginLeft, width - marginRight), n));
 
     svg
       .append('image')
@@ -47,26 +43,16 @@ function legend({
       .attr('width', width - marginLeft - marginRight)
       .attr('height', height - marginTop - marginBottom)
       .attr('preserveAspectRatio', 'none')
-      .attr(
-        'xlink:href',
-        ramp(
-          color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))
-        ).toDataURL()
-      );
+      .attr('xlink:href', ramp(color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))).toDataURL());
   }
 
   // Sequential
   else if (color.interpolator) {
-    x = Object.assign(
-      color
-        .copy()
-        .interpolator(d3.interpolateRound(marginLeft, width - marginRight)),
-      {
-        range() {
-          return [marginLeft, width - marginRight];
-        },
+    x = Object.assign(color.copy().interpolator(d3.interpolateRound(marginLeft, width - marginRight)), {
+      range() {
+        return [marginLeft, width - marginRight];
       }
-    );
+    });
 
     svg
       .append('image')
@@ -81,9 +67,7 @@ function legend({
     if (!x.ticks) {
       if (tickValues === undefined) {
         const n = Math.round(ticks + 1);
-        tickValues = d3
-          .range(n)
-          .map((i) => d3.quantile(color.domain(), i / (n - 1)));
+        tickValues = d3.range(n).map((i) => d3.quantile(color.domain(), i / (n - 1)));
       }
       if (typeof tickFormat !== 'function') {
         tickFormat = d3.format(tickFormat === undefined ? ',f' : tickFormat);
@@ -100,11 +84,7 @@ function legend({
       : color.domain(); // scaleThreshold
 
     const thresholdFormat =
-      tickFormat === undefined
-        ? (d) => d
-        : typeof tickFormat === 'string'
-        ? d3.format(tickFormat)
-        : tickFormat;
+      tickFormat === undefined ? (d) => d : typeof tickFormat === 'string' ? d3.format(tickFormat) : tickFormat;
 
     x = d3
       .scaleLinear()
@@ -126,8 +106,7 @@ function legend({
     tickFormat = (i) => {
       if (i === -1) return thresholdFormat(1);
       else if (i === thresholds.length - 1) return;
-      else if (i === thresholds.length - 2)
-        return thresholdFormat(thresholds[i] + '+', i);
+      else if (i === thresholds.length - 2) return thresholdFormat(thresholds[i] + '+', i);
       return thresholdFormat(thresholds[i], i);
     };
   }
@@ -182,9 +161,7 @@ function legend({
 
 function ramp(color, n = 256) {
   const canvas = document.createElement('canvas');
-  const context = ((canvas.width = n), (canvas.height = 1), canvas).getContext(
-    '2d'
-  );
+  const context = ((canvas.width = n), (canvas.height = 1), canvas).getContext('2d');
   for (let i = 0; i < n; ++i) {
     context.fillStyle = color(i / (n - 1));
     context.fillRect(i, 0, 1, 1);

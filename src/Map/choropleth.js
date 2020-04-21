@@ -1,12 +1,12 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson';
-import {MAP_TYPES} from './constants';
+import { MAP_TYPES } from './constants';
 import legend from './legend';
 
 const propertyFieldMap = {
   country: 'st_nm',
-  state: 'district',
+  state: 'district'
 };
 
 function ChoroplethMap({
@@ -17,7 +17,7 @@ function ChoroplethMap({
   changeMap,
   selectedRegion,
   setSelectedRegion,
-  isCountryLoaded,
+  isCountryLoaded
 }) {
   const choroplethMap = useRef(null);
   const choroplethLegend = useRef(null);
@@ -30,10 +30,7 @@ function ChoroplethMap({
       const propertyField = propertyFieldMap[mapMeta.mapType];
       const svg = d3.select(choroplethMap.current);
 
-      const topology = topojson.feature(
-        geoData,
-        geoData.objects[mapMeta.graphObjectName]
-      );
+      const topology = topojson.feature(geoData, geoData.objects[mapMeta.graphObjectName]);
 
       const projection = d3.geoMercator();
       // Set size of map
@@ -63,20 +60,14 @@ function ChoroplethMap({
       const domainMax = Math.max(3, statistic.maxConfirmed);
       const steps = Math.min(6, domainMax);
       const domainMin = Math.max(2, Math.floor(statistic.maxConfirmed / steps));
-      const domain = Array.from(
-        {length: steps},
-        (e, i) => domainMin + i * Math.floor(domainMax / steps)
-      );
+      const domain = Array.from({ length: steps }, (e, i) => domainMin + i * Math.floor(domainMax / steps));
 
       const svgLegend = d3.select(choroplethLegend.current);
       svgLegend.selectAll('*').remove();
-      const colorScale = d3
-        .scaleThreshold()
-        .domain(domain)
-        .range(d3.schemeReds[steps]);
+      const colorScale = d3.scaleThreshold().domain(domain).range(d3.schemeReds[steps]);
       // Colorbar
       const widthLegend = parseInt(svgLegend.style('width'));
-      const margin = {left: 0.02 * widthLegend, right: 0.02 * widthLegend};
+      const margin = { left: 0.02 * widthLegend, right: 0.02 * widthLegend };
       const barWidth = widthLegend - margin.left - margin.right;
       const heightLegend = +svgLegend.attr('height');
       svgLegend
@@ -87,7 +78,7 @@ function ChoroplethMap({
             color: colorScale,
             title: 'Confirmed Cases',
             width: barWidth,
-            height: 0.8 * heightLegend,
+            height: 0.8 * heightLegend
           })
         );
       svgLegend.attr('viewBox', `0 0 ${widthLegend} ${heightLegend}`);
@@ -124,9 +115,7 @@ function ChoroplethMap({
         .text(function (d) {
           const value = mapData[d.properties[propertyField]] || 0;
           return (
-            Number(
-              parseFloat(100 * (value / (statistic.total || 0.001))).toFixed(2)
-            ).toString() +
+            Number(parseFloat(100 * (value / (statistic.total || 0.001))).toFixed(2)).toString() +
             '% from ' +
             toTitleCase(d.properties[propertyField])
           );
@@ -137,10 +126,7 @@ function ChoroplethMap({
         .attr('stroke', '#ff073a20')
         .attr('fill', 'none')
         .attr('stroke-width', 2)
-        .attr(
-          'd',
-          path(topojson.mesh(geoData, geoData.objects[mapMeta.graphObjectName]))
-        );
+        .attr('d', path(topojson.mesh(geoData, geoData.objects[mapMeta.graphObjectName])));
 
       const handleMouseover = (name) => {
         try {
@@ -160,8 +146,7 @@ function ChoroplethMap({
       // Reset on tapping outside map
       svg.on('click', () => {
         setSelectedRegion(null);
-        if (mapMeta.mapType === MAP_TYPES.COUNTRY)
-          setHoveredRegion('Total', mapMeta);
+        if (mapMeta.mapType === MAP_TYPES.COUNTRY) setHoveredRegion('Total', mapMeta);
       });
     },
     [
@@ -172,7 +157,7 @@ function ChoroplethMap({
       changeMap,
       setHoveredRegion,
       setSelectedRegion,
-      isCountryLoaded,
+      isCountryLoaded
     ]
   );
 
@@ -197,10 +182,7 @@ function ChoroplethMap({
   const highlightRegionInMap = (name) => {
     const paths = d3.selectAll('.path-region');
     paths.classed('Map--hover', (d, i, nodes) => {
-      const propertyField =
-        'district' in d.properties
-          ? propertyFieldMap['state']
-          : propertyFieldMap['country'];
+      const propertyField = 'district' in d.properties ? propertyFieldMap['state'] : propertyFieldMap['country'];
       if (name === d.properties[propertyField]) {
         nodes[i].parentNode.appendChild(nodes[i]);
         return true;
@@ -215,23 +197,11 @@ function ChoroplethMap({
 
   return (
     <div>
-      <div className="svg-parent fadeInUp" style={{animationDelay: '2.5s'}}>
-        <svg
-          id="chart"
-          preserveAspectRatio="xMidYMid meet"
-          ref={choroplethMap}
-        ></svg>
+      <div className="svg-parent fadeInUp" style={{ animationDelay: '2.5s' }}>
+        <svg id="chart" preserveAspectRatio="xMidYMid meet" ref={choroplethMap}></svg>
       </div>
-      <div
-        className="svg-parent legend fadeInUp"
-        style={{animationDelay: '2.5s'}}
-      >
-        <svg
-          id="legend"
-          height="65"
-          preserveAspectRatio="xMidYMid meet"
-          ref={choroplethLegend}
-        ></svg>
+      <div className="svg-parent legend fadeInUp" style={{ animationDelay: '2.5s' }}>
+        <svg id="legend" height="65" preserveAspectRatio="xMidYMid meet" ref={choroplethLegend}></svg>
       </div>
     </div>
   );

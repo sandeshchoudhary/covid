@@ -1,6 +1,6 @@
 import moment from 'moment';
-import {STATE_CODES} from './constants';
-import {format as d3format} from 'd3';
+import { STATE_CODES } from './constants';
+import { format as d3format } from 'd3';
 
 const months = {
   '01': 'Jan',
@@ -14,7 +14,7 @@ const months = {
   '09': 'Sep',
   '10': 'Oct',
   '11': 'Nov',
-  '12': 'Dec',
+  '12': 'Dec'
 };
 
 export const getStateName = (code) => {
@@ -45,7 +45,7 @@ const validateCTS = (data = []) => {
     'dailyrecovered',
     'totalconfirmed',
     'totaldeceased',
-    'totalrecovered',
+    'totalrecovered'
   ];
   return data
     .filter((d) => dataTypes.every((dt) => d[dt]) && d.date)
@@ -64,7 +64,7 @@ export const preprocessTimeseries = (timeseries) => {
     totaldeceased: +stat.totaldeceased,
     dailyconfirmed: +stat.dailyconfirmed,
     dailyrecovered: +stat.dailyrecovered,
-    dailydeceased: +stat.dailydeceased,
+    dailydeceased: +stat.dailydeceased
   }));
 };
 
@@ -81,14 +81,10 @@ export function sliceTimeseriesFromEnd(timeseries, days) {
 
 export const formatNumber = (value, shrinkNumbers) => {
   const numberFormatter = new Intl.NumberFormat('en-IN');
-  return isNaN(value)
-    ? '-'
-    : shrinkNumbers
-    ? d3format('.1~s')(value)
-    : numberFormatter.format(value);
+  return isNaN(value) ? '-' : shrinkNumbers ? d3format('.1~s')(value) : numberFormatter.format(value);
 };
 
-export const parseStateTimeseries = ({states_daily: data}) => {
+export const parseStateTimeseries = ({ states_daily: data }) => {
   const statewiseSeries = Object.keys(STATE_CODES).reduce((a, c) => {
     a[c] = [];
     return a;
@@ -109,7 +105,7 @@ export const parseStateTimeseries = ({states_daily: data}) => {
           dailydeceased: +data[i + 2][stateCode] || 0,
           totalconfirmed: +data[i][stateCode] + (prev.totalconfirmed || 0),
           totalrecovered: +data[i + 1][stateCode] + (prev.totalrecovered || 0),
-          totaldeceased: +data[i + 2][stateCode] + (prev.totaldeceased || 0),
+          totaldeceased: +data[i + 2][stateCode] + (prev.totaldeceased || 0)
         });
       });
     }

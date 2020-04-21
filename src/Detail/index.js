@@ -1,17 +1,17 @@
 import React from 'react';
 import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner } from 'design-system';
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from 'react-router-dom';
 import './Detail.css';
 import StatsCard from '../Summary';
 import { useQuery } from '@apollo/react-hooks';
 import { getQuery } from '../query';
 
 const columnOptions = {
-  size: "12",
-  sizeXL: "6",
-  sizeL: "12",
-  sizeM: "6",
-  sizeS: "6"
+  size: '12',
+  sizeXL: '6',
+  sizeL: '12',
+  sizeM: '6',
+  sizeS: '6'
 };
 
 const schema = [
@@ -24,26 +24,30 @@ const schema = [
       </div>
     ),
     get: ({ district }) => ({
-      x: district,
+      x: district
     }),
-    header: () => <div className="Stat-table-cell"><Text weight="strong">Name</Text></div>,
+    header: () => (
+      <div className="Stat-table-cell">
+        <Text weight="strong">Name</Text>
+      </div>
+    )
   },
   {
     width: 200,
     pinned: false ? 'LEFT' : undefined,
-    template: ({ x, rowIndex }) => (
-      <div className="Stat-table-cell">
-        {x}
-      </div>
-    ),
+    template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
     get: ({ confirmed }) => ({
-      x: confirmed,
+      x: confirmed
     }),
-    header: () => <div className="Stat-table-cell"><Text weight="strong">Confirmed Cases</Text></div>,
+    header: () => (
+      <div className="Stat-table-cell">
+        <Text weight="strong">Confirmed Cases</Text>
+      </div>
+    )
   }
-]
+];
 
-const Detail = props => {
+const Detail = (props) => {
   const { entity } = props;
   let history = useHistory();
   const params = useParams();
@@ -51,28 +55,31 @@ const Detail = props => {
   const type = entity === 'world' ? 'country' : 'state';
   const { loading, error, data } = useQuery(getQuery(type, stateName));
 
-  const { loading: districtLoading, error: districtError, data: districtData } = useQuery(getQuery('district', stateName));
+  const { loading: districtLoading, error: districtError, data: districtData } = useQuery(
+    getQuery('district', stateName)
+  );
 
-  const getWorldStats = data => {
-    const stats = {...data, ...{
-      active: data.confirmed - data.deaths - data.recovered,
-    }}
+  const getWorldStats = (data) => {
+    const stats = {
+      ...data,
+      ...{
+        active: data.confirmed - data.deaths - data.recovered
+      }
+    };
     return stats;
-  }
+  };
 
-  const getStateStats = data => {
-    const index = data.findIndex(item => {
+  const getStateStats = (data) => {
+    const index = data.findIndex((item) => {
       return item.state === stateName;
     });
     return index > -1 ? data[index] : {};
-  }
+  };
 
   return (
     <div className="Detail-container">
       <header>
-        <BreadcrumbsWrapper
-          heading={`${params.id} - Breakdown`}
-        >
+        <BreadcrumbsWrapper heading={`${params.id} - Breakdown`}>
           <Breadcrumb>
             <div className="Breadcrumb-link">
               <Link onClick={() => history.push('/')}>HOME</Link>
@@ -94,12 +101,17 @@ const Detail = props => {
               </div>
             )}
             {!loading && data && (
-              <StatsCard entity={params.id} showLink={false}
-                stats={entity === 'world' ? getWorldStats(data.country.mostRecent) : getStateStats(data.india.statewise)}
-                drillCallback={null} />
+              <StatsCard
+                entity={params.id}
+                showLink={false}
+                stats={
+                  entity === 'world' ? getWorldStats(data.country.mostRecent) : getStateStats(data.india.statewise)
+                }
+                drillCallback={null}
+              />
             )}
           </Column>
-          { (entity === 'india') && (
+          {entity === 'india' && (
             <Column {...columnOptions}>
               <Table
                 style={{
@@ -124,6 +136,6 @@ const Detail = props => {
       </div>
     </div>
   );
-}
+};
 
 export default Detail;

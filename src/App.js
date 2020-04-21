@@ -1,26 +1,21 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './App.css';
 import StatsCard from './Summary';
 import { Row, Column, Spinner } from 'design-system';
-import {MAP_META} from './Map/constants';
+import { MAP_META } from './Map/constants';
 import query from './query';
 import { useQuery } from '@apollo/react-hooks';
-import { useHistory } from "react-router-dom";
-import {
-  formatDate,
-  formatDateAbsolute,
-  preprocessTimeseries,
-  parseStateTimeseries,
-} from './Map/common-functions';
+import { useHistory } from 'react-router-dom';
+import { formatDate, formatDateAbsolute, preprocessTimeseries, parseStateTimeseries } from './Map/common-functions';
 import MapExplorer from './Map';
 import CovidInfo from './CovidInfo';
 
 const columnOptions = {
-  size: "12",
-  sizeXL: "6",
-  sizeL: "12",
-  sizeM: "6",
-  sizeS: "6"
+  size: '12',
+  sizeXL: '6',
+  sizeL: '12',
+  sizeM: '6',
+  sizeS: '6'
 };
 
 const App = () => {
@@ -40,7 +35,17 @@ const App = () => {
   let history = useHistory();
 
   useEffect(() => {
-    if (!indiaLoading && !indiaError && indiaData && !testLoading && !testError && testingData && !districtLoading && !districtError && districtData) {
+    if (
+      !indiaLoading &&
+      !indiaError &&
+      indiaData &&
+      !testLoading &&
+      !testError &&
+      testingData &&
+      !districtLoading &&
+      !districtError &&
+      districtData
+    ) {
       setStates(indiaData.india.statewise);
       setLastUpdated(indiaData.india.statewise[0].lastupdatedtime);
       const testData = testingData.tests.reverse();
@@ -49,34 +54,38 @@ const App = () => {
         updatedon: totalTest.updatetimestamp.split(' ')[0],
         totaltested: totalTest.totalindividualstested,
         source: totalTest.source,
-        state: 'Total', // India
+        state: 'Total' // India
       });
       setStateTestData(testData);
       setStateDistrictWiseDataV2(districtData.districts);
-      const index = indiaData.india.statewise.findIndex(item => {return item.state === 'Total'});
+      const index = indiaData.india.statewise.findIndex((item) => {
+        return item.state === 'Total';
+      });
       setIndiaStats(indiaData.india.statewise[index]);
-      setFetched(true)
+      setFetched(true);
     }
-  })
+  });
 
-  const getWorldStats = data => {
-    const stats = {...data, ...{
-      active: data.confirmed - data.deaths - data.recovered,
-    }}
+  const getWorldStats = (data) => {
+    const stats = {
+      ...data,
+      ...{
+        active: data.confirmed - data.deaths - data.recovered
+      }
+    };
     return stats;
-  }
-
+  };
 
   const onHighlightState = (state, index) => {
     if (!state && !index) return setRegionHighlighted(null);
-    setRegionHighlighted({state, index});
+    setRegionHighlighted({ state, index });
   };
   const onHighlightDistrict = (district, state, index) => {
     if (!state && !index && !district) return setRegionHighlighted(null);
-    setRegionHighlighted({district, state, index});
+    setRegionHighlighted({ district, state, index });
   };
 
-  const onMapHighlightChange = useCallback(({statecode}) => {
+  const onMapHighlightChange = useCallback(({ statecode }) => {
     setActiveStateCode(statecode);
   }, []);
 
@@ -84,12 +93,11 @@ const App = () => {
 
   const drillIndiaCallback = () => {
     history.push('/india');
-  }
+  };
 
   const drillWorldCallback = () => {
     history.push('/world');
-  }
-
+  };
 
   return (
     <div className="App">
@@ -99,7 +107,7 @@ const App = () => {
             <CovidInfo />
           </Column>
           <Column {...columnOptions}>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               {fetched && (
                 <MapExplorer
                   forwardRef={refs[1]}
@@ -123,7 +131,12 @@ const App = () => {
               </div>
             )}
             {!worldLoading && !worldError && worldData && (
-              <StatsCard entity="world" showLink={true} stats={getWorldStats(worldData.summary)} drillCallback={drillWorldCallback} />
+              <StatsCard
+                entity="world"
+                showLink={true}
+                stats={getWorldStats(worldData.summary)}
+                drillCallback={drillWorldCallback}
+              />
             )}
           </Column>
           <Column {...columnOptions}>
@@ -140,6 +153,6 @@ const App = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;
