@@ -52,6 +52,9 @@ const query = {
       confirmed,
       deaths,
       recovered } }
+  `,
+  countries: gql`
+    {countries(names: []){ name, mostRecent { confirmed, deaths, recovered}}}    
   `
 }
 
@@ -71,31 +74,19 @@ export const getQuery = (type, id) => {
   `
   } else if (type === 'state') {
     return gql`
-      {
-        states(country: "India", names: []) {
-          name
-        }
-      
-        state(country: "India", name: "${id}") {
-          name
-          mostRecent {
-            confirmed
-            deaths
-            recovered
-          }
-        }
-      }
+      {india {
+        statewise {active, confirmed, deaths, recovered, state, statecode}
+      }}
     `
-  } else if (type === 'world') {
+  } else if (type === 'district') {
     return gql`
-      { summary{
-        confirmed,
-        deaths,
-        recovered } }
+      {district(stateName: "${id}") { state, districtData {district, confirmed, lastupdatedtime} }}
     `
   } else if (type === 'country' && id === 'india') {
     return gql`
-      {country(name: \"India\") { name, mostRecent { confirmed, deaths, recovered}}}
+      {india {
+        statewise {active, confirmed, deaths, recovered, state, statecode}
+      }}
     `
   }
 }

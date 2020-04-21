@@ -1,10 +1,10 @@
 import React from 'react';
-import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table } from 'design-system';
+import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner } from 'design-system';
 import { useHistory, useParams } from "react-router-dom";
-import Summary from '../Summary';
 import './Detail.css';
-import axios from 'axios';
-const { useEffect, useState } = React;
+import StatsCard from '../Summary/Summary';
+import { useQuery } from '@apollo/react-hooks';
+import { getQuery } from '../query';
 
 const columnOptions = {
   size: "12",
@@ -13,10 +13,6 @@ const columnOptions = {
   sizeM: "6",
   sizeS: "6"
 };
-
-const mapData = data => {
-  return Object.entries(data.districtData).map((e) => ( { name: e[0], data:  e[1] } ));
-}
 
 const schema = [
   {
@@ -27,8 +23,8 @@ const schema = [
         <Link onClick={() => null}>{x}</Link>
       </div>
     ),
-    get: ({ name }) => ({
-      x: name,
+    get: ({ district }) => ({
+      x: district,
     }),
     header: () => <div className="Stat-table-cell"><Text weight="strong">Name</Text></div>,
   },
@@ -40,8 +36,8 @@ const schema = [
         {x}
       </div>
     ),
-    get: ({ data }) => ({
-      x: data.confirmed,
+    get: ({ confirmed }) => ({
+      x: confirmed,
     }),
     header: () => <div className="Stat-table-cell"><Text weight="strong">Confirmed Cases</Text></div>,
   }
@@ -52,19 +48,24 @@ const Detail = props => {
   let history = useHistory();
   const params = useParams();
   const stateName = params.id;
-  const [stateData, setStateData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const type = entity === 'world' ? 'country' : 'state';
+  const { loading, error, data } = useQuery(getQuery(type, stateName));
 
-  useEffect(() => {
-    axios(`https://api.covid19india.org/state_district_wise.json`)
-      .then(res => {
-        setStateData(mapData(res.data[stateName]));
-        setLoading(false);
-      })
-      .catch(err => {
-        setLoading(false);
-      });
-  }, [stateName])
+  const { loading: districtLoading, error: districtError, data: districtData } = useQuery(getQuery('district', stateName));
+
+  const getWorldStats = data => {
+    const stats = {...data, ...{
+      active: data.confirmed - data.deaths - data.recovered,
+    }}
+    return stats;
+  }
+
+  const getStateStats = data => {
+    const index = data.findIndex(item => {
+      return item.state === stateName;
+    });
+    return index > -1 ? data[index] : {};
+  }
 
   return (
     <div className="Detail-container">
@@ -87,7 +88,16 @@ const Detail = props => {
       <div className="Detail-body">
         <Row>
           <Column {...columnOptions}>
-            <Summary entity={params.id} type={entity === 'world' ? 'country' : 'state'} />
+            {loading && (
+              <div className="Spinner-container">
+                <Spinner size="large" appearance="primary" />
+              </div>
+            )}
+            {!loading && data && (
+              <StatsCard entity={params.id} showLink={false}
+                stats={entity === 'world' ? getWorldStats(data.country.mostRecent) : getStateStats(data.india.statewise)}
+                drillCallback={null} />
+            )}
           </Column>
           { (entity === 'india') && (
             <Column {...columnOptions}>
@@ -97,7 +107,7 @@ const Detail = props => {
                   marginLeft: '16px'
                 }}
                 loadMore={() => null}
-                loading={isLoading}
+                loading={districtLoading || (!districtLoading && !districtData)}
                 loadingMoreData={false}
                 getGridActions={false ? undefined : undefined}
                 buffer={5}
@@ -106,7 +116,7 @@ const Detail = props => {
                 headerHeight={40}
                 virtualization={false}
                 schema={schema}
-                data={stateData}
+                data={districtData ? districtData.district.districtData : []}
               />
             </Column>
           )}

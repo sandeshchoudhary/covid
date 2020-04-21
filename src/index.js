@@ -8,6 +8,7 @@ import { client } from './api';
 import Header from './Header';
 import Footer from './Footer';
 import Stats from './Stats';
+import StatsData from './Stats/Stats';
 import Detail from './Detail';
 import References from './References';
 import {
@@ -33,10 +34,11 @@ ReactDOM.render(
               <Detail entity="world" />
             </Route>
             <Route path="/india">
-              <Stats entity="india" />
+              <StatsData entity="india" queryType="india" />
             </Route>
             <Route path="/world">
-              <Stats entity="world" />
+              <StatsData entity="world" queryType="countries" />
+              {/* <Stats entity="world" /> */}
             </Route>
             <Route path="/references">
               <References />
