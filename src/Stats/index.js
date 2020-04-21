@@ -17,7 +17,7 @@ const columnOptions = {
 };
 
 const Stats = props => {
-  const { entity } = props;
+  const { entity, queryType } = props;
   let history = useHistory();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -38,8 +38,8 @@ const Stats = props => {
           <Link onClick={() => handleDrill(x)}>{x}</Link>
         </div>
       ),
-      get: ({ name }) => ({
-        x: name,
+      get: ({ name, state }) => ({
+        x: entity === 'india' ? state : name
       }),
       header: () => <div className="Stat-table-cell"><Text weight="strong">Name</Text></div>,
     },
@@ -51,8 +51,8 @@ const Stats = props => {
           {x}
         </div>
       ),
-      get: ({ mostRecent }) => ({
-        x: mostRecent.confirmed,
+      get: ({ mostRecent, confirmed }) => ({
+        x: entity === 'india' ? confirmed : mostRecent.confirmed,
       }),
       header: () => <div className="Stat-table-cell"><Text weight="strong">Confirmed</Text></div>,
     },
@@ -64,8 +64,8 @@ const Stats = props => {
           {x}
         </div>
       ),
-      get: ({ mostRecent }) => ({
-        x: mostRecent.recovered,
+      get: ({ mostRecent, recovered }) => ({
+        x: entity === 'india' ? recovered : mostRecent.recovered,
       }),
       header: () => <div className="Stat-table-cell"><Text weight="strong">Recovered</Text></div>,
     },
@@ -77,22 +77,36 @@ const Stats = props => {
           {x}
         </div>
       ),
-      get: ({ mostRecent }) => ({
-        x: mostRecent.deaths,
+      get: ({ mostRecent, deaths }) => ({
+        x: entity === 'india' ? deaths : mostRecent.deaths,
       }),
       header: () => <div className="Stat-table-cell"><Text weight="strong">Deaths</Text></div>,
     }
   ]
 
   const getData = (entity, data = {}) => {
-    const list = entity === 'india' ? data.states : data.countries;
+    const list = entity === 'india' ? data.india.statewise : data.countries;
     if (!list) return [];
     return list.filter(item => {
+      if (entity === 'india') {
+        return item.state.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1 && item.state !== 'Total';
+      }
       return item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+    }).map(item => {
+      if (entity === 'india') {
+        return {...item, ...{
+          name: item.state,
+          recovered: Number(item.recovered),
+          deaths: Number(item.deaths),
+          confirmed: Number(item.confirmed)
+          }
+        }
+      }
+      return item;
     });
   }
 
-  const { loading, error, data } = useQuery(query.stats[entity]);
+  const { loading, error, data } = useQuery(query[queryType]);
 
   return (
     <div className="Stats-container">
@@ -112,7 +126,7 @@ const Stats = props => {
         <div>error...</div>
       )}
 
-      {!error && (
+      {!error && !loading && data && (
         <div className="Stats-body">
           <Row>
             <Input clearButton={true}
@@ -149,17 +163,23 @@ const Stats = props => {
                   <Spinner size="large" appearance="primary" />
                 </div>
               )}
-              {!loading && (
+              {!loading && data && (
                 <ResponsiveContainer width={'100%'} height={250}>
                   <ComposedChart data={getData(entity, data)}>
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey={entity === 'india' ? 'state' : 'name'} />
                     <YAxis />
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Area name="Recovered" type="monotone" dataKey="mostRecent[recovered]" fill="#71c077" stroke="#2ea843" />
-                    <Bar name="Confirmed" dataKey="mostRecent[confirmed]" barSize={20} fill="#0070dd" />
-                    <Line name="Deaths" type="monotone" dataKey="mostRecent[deaths]" stroke="#d93737" />
+                    <Area name="Recovered" type="monotone"
+                      dataKey={entity === 'india' ? 'recovered' : 'mostRecent[recovered]'}
+                      fill="#71c077" stroke="#2ea843" />
+                    <Bar name="Confirmed"
+                      dataKey={entity === 'india' ? 'confirmed' : 'mostRecent[confirmed]'}
+                      barSize={20} fill="#0070dd" />
+                    <Line name="Deaths" type="monotone"
+                      dataKey={entity === 'india' ? 'deaths' : 'mostRecent[deaths]'}
+                      stroke="#d93737" />
                   </ComposedChart>
                 </ResponsiveContainer>
               )}

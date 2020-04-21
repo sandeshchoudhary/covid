@@ -17,24 +17,19 @@ const columnOptions = {
 };
 
 const Summary = (props) => {
-  const { entity, type, showLink } = props;
+  const { entity, type, showLink, drillCallback, stats = {} } = props;
   let history = useHistory();
-
-  const extractStats = (entity, result) => {
-    const stats = type === 'country' ? result.country.mostRecent : type === 'state' ? result.state.mostRecent : result.summary;
-    return stats;
-  }
 
   const getChart = stats => {
     const data = [
       {
-        name: 'Active', value: stats.confirmed - stats.deaths - stats.recovered
+        name: 'Active', value: Number(stats.active)
       },
       {
-        name: 'Deaths', value: stats.deaths
+        name: 'Deaths', value: Number(stats.deaths)
       },
       {
-        name: 'Recovered', value: stats.recovered
+        name: 'Recovered', value: Number(stats.recovered)
       }
     ]
     const COLORS = ['#0070dd', '#d93737', '#2ea843'];
@@ -91,15 +86,9 @@ const Summary = (props) => {
   }
 
   const handleMore = entity => {
-    if(entity === 'india') {
-      history.push('/india');
-    } else {
-      history.push('/world');
-    }
+    drillCallback();
   }
 
-
-  const { loading, error, data } = useQuery(getQuery(type, entity));
   return (
     <Card
       shadow="medium"
@@ -109,40 +98,28 @@ const Summary = (props) => {
       }}
     >
       <Text>{entity.toUpperCase()} STATISTICS</Text>
-        {loading && (
-          <div className="Spinner-container">
-            <Spinner size="large" appearance="primary" />
+        <Row>
+          <Column {...columnOptions}>
+            {getChart(stats)}
+          </Column>
+          <Column {...columnOptions}>
+            <Heading appearance="subtle" size="m">
+              Total Patients
+            </Heading>
+            <Text appearance="destructive" style={{fontSize: '40px'}}>
+              {stats.confirmed}
+            </Text>
+            {getLegends(stats)}
+          </Column>
+        </Row>
+        {showLink && (
+          <div>
+            <Button appearance="primary" onClick={() => handleMore(entity)}
+              icon="trending_flat"
+              iconAlign="right">
+              Show More
+            </Button>
           </div>
-        )}
-        {!loading && error && (
-          <p>Error :(</p>
-        )}
-        {!loading && !error && (
-          <React.Fragment>
-            <Row>
-              <Column {...columnOptions}>
-                {getChart(extractStats(entity, data))}
-              </Column>
-              <Column {...columnOptions}>
-                <Heading appearance="subtle" size="m">
-                  Total Patients
-                </Heading>
-                <Text appearance="destructive" style={{fontSize: '40px'}}>
-                  {extractStats(entity, data).confirmed}
-                </Text>
-                {getLegends(extractStats(entity, data))}
-              </Column>
-            </Row>
-            {showLink && (
-              <div>
-                <Button appearance="primary" onClick={() => handleMore(entity)}
-                  icon="trending_flat"
-                  iconAlign="right">
-                  Show More
-                </Button>
-              </div>
-            )}
-          </React.Fragment>
         )}
     </Card>
     );

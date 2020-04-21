@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import './App.css';
-import Summary from './Summary';
-import StatsCard from './Summary/Summary';
+import StatsCard from './Summary';
 import { Row, Column, Spinner } from 'design-system';
 import {MAP_META} from './Map/constants';
 import query from './query';

@@ -7,8 +7,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './api';
 import Header from './Header';
 import Footer from './Footer';
-import Stats from './Stats';
-import StatsData from './Stats/Stats';
+import StatsData from './Stats';
 import Detail from './Detail';
 import References from './References';
 import {

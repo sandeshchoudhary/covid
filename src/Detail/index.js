@@ -2,7 +2,7 @@ import React from 'react';
 import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner } from 'design-system';
 import { useHistory, useParams } from "react-router-dom";
 import './Detail.css';
-import StatsCard from '../Summary/Summary';
+import StatsCard from '../Summary';
 import { useQuery } from '@apollo/react-hooks';
 import { getQuery } from '../query';
 
