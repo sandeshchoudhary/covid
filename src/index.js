@@ -17,7 +17,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <div>
         <Header />
-        <Router basename="/covid">
+        <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route exact path="/">
               <App />
