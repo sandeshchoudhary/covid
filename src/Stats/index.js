@@ -39,6 +39,21 @@ const Stats = (props) => {
     history.push(`/${entity}/detail/${id}`);
   };
 
+  const loaderSchema = [
+    {
+      width: 200,
+    },
+    {
+      width: 100,
+    },
+    {
+      width: 100,
+    },
+    {
+      width: 100,
+    },
+  ];
+
   const schema = [
     {
       width: 200,
@@ -51,11 +66,8 @@ const Stats = (props) => {
       get: ({ name, state }) => ({
         x: entity === 'india' ? state : name
       }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Name</Text>
-        </div>
-      )
+      name: 'name',
+      displayName: 'Name',
     },
     {
       width: 100,
@@ -64,11 +76,8 @@ const Stats = (props) => {
       get: ({ mostRecent, confirmed }) => ({
         x: entity === 'india' ? confirmed : mostRecent.confirmed
       }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Confirmed</Text>
-        </div>
-      )
+      name: 'confirmed',
+      displayName: 'Confirmed',
     },
     {
       width: 100,
@@ -77,11 +86,8 @@ const Stats = (props) => {
       get: ({ mostRecent, recovered }) => ({
         x: entity === 'india' ? recovered : mostRecent.recovered
       }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Recovered</Text>
-        </div>
-      )
+      name: 'recovered',
+      displayName: 'Recovered',
     },
     {
       width: 100,
@@ -90,11 +96,8 @@ const Stats = (props) => {
       get: ({ mostRecent, deaths }) => ({
         x: entity === 'india' ? deaths : mostRecent.deaths
       }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Deaths</Text>
-        </div>
-      )
+      name: 'deaths',
+      displayName: 'Deaths',
     }
   ];
 
@@ -166,11 +169,11 @@ const Stats = (props) => {
                 getGridActions={false ? undefined : undefined}
                 buffer={5}
                 dynamicRowHeight={false}
-                rowHeight={50}
-                headerHeight={40}
-                virtualization={false}
+                loaderSchema={loaderSchema}
                 schema={schema}
                 data={getData(entity, data)}
+                pagination={true}
+                limit={20}
               />
             </Column>
             <Column {...columnOptions}>
