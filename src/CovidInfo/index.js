@@ -2,7 +2,7 @@ import React from 'react';
 import Precaution from './Precaution';
 import Symptom from './Symptom';
 import Transmission from './Transmission';
-import { Row, Column } from 'design-system';
+import { Row, Column, Card } from 'design-system';
 
 const precautionColumnOptions = {
   size: '12',
@@ -22,19 +22,18 @@ const symptonColumnOptions = {
 
 const CovidInfo = () => {
   return (
-    <div>
-      <Row>
-        <Column {...precautionColumnOptions}>
-          <Precaution />
-        </Column>
-        <Column {...symptonColumnOptions}>
-          <Symptom />
-        </Column>
-      </Row>
-      <Row>
-        <Transmission />
-      </Row>
-    </div>
+    <Card
+      shadow="medium"
+      style={{
+        minHeight: '200px',
+        padding: '16px',
+        backgroundColor: 'white'
+      }}
+    >
+      <Precaution />
+      <Symptom />
+      <Transmission />
+    </Card>
   );
 };
 

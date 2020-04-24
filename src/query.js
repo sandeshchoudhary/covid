@@ -133,6 +133,61 @@ const query = {
         }
       }
     }
+  `,
+  indiaStats: gql`
+    {
+      districts {
+        state
+        districtData {
+          district
+          confirmed
+          lastupdatedtime
+        }
+      }
+      india {
+        statewise {
+          active
+          confirmed
+          deaths
+          deltaconfirmed
+          deltadeaths
+          deltarecovered
+          lastupdatedtime
+          recovered
+          state
+          statecode
+          statenotes
+        }
+        tested {
+          positivecasesfromsamplesreported
+          samplereportedtoday
+          source
+          testsconductedbyprivatelabs
+          totalindividualstested
+          totalpositivecases
+          totalsamplestested
+          updatetimestamp
+        }
+      }
+      tests {
+        negative
+        numcallsstatehelpline
+        numicubeds
+        numisolationbeds
+        numventilators
+        positive
+        positiveratebytests
+        source
+        source2
+        state
+        testsperthousand
+        totalpeopleinquarantine
+        totalpeoplereleasedfromquarantine
+        totaltested
+        unconfirmed
+        updatedon
+      }
+    }
   `
 };
 

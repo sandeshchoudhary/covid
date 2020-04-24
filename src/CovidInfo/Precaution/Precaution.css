@@ -1,6 +1,6 @@
 .Precaution-container {
   background-color: var(--stone-lightest);
-  min-height: 200px;
+  /* min-height: 200px; */
   border-radius: 0 var(--spacing-l) var(--spacing-l) 0;
 }
 

@@ -190,3 +190,42 @@ h6 {
   stroke: #ff073a;
   stroke-width: 2;
 }
+
+.Map-info {
+}
+
+.Map-info-item {
+  background-color: var(--secondary-lightest);
+  /* padding: var(--spacing-m); */
+  height: 50px;
+  border-radius: var(--spacing-m);
+  margin-top: var(--spacing-l);
+}
+
+.InfoLegend {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.InfoLegend--primary {
+  background-color: var(--primary);
+}
+
+.InfoLegend--alert {
+  background-color: var(--alert);
+}
+
+.InfoLegend--success {
+  background-color: var(--success);
+}
+
+.InfoLegend--secondary {
+  background-color: var(--secondary);
+}
+
+.InfoLegend--warning {
+  background-color: var(--warning);
+}

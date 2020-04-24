@@ -11,6 +11,7 @@ import StatsData from './Stats';
 import Detail from './Detail';
 import References from './References';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './Home';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +21,7 @@ ReactDOM.render(
         <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route exact path="/">
-              <App />
+              <Home />
             </Route>
             <Route path="/india/detail/:id" exact>
               <Detail entity="india" />

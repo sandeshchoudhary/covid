@@ -37,12 +37,12 @@ const Precaution = () => {
   const getPrecautions = () => {
     return precautionList.map((item, index) => {
       return (
-        <Column {...columnOptions} key={index}>
-          <div>
-            {item.logo}
-            <Text>{item.info}</Text>
-          </div>
-        </Column>
+        // <Column {...columnOptions} key={index}>
+        <div key={index}>
+          {item.logo}
+          <Text>{item.info}</Text>
+        </div>
+        // </Column>
       );
     });
   };
@@ -52,9 +52,7 @@ const Precaution = () => {
       <div className="Precaution-heading-container">
         <Heading>Precautions</Heading>
       </div>
-      <div>
-        <Row>{getPrecautions()}</Row>
-      </div>
+      <div>{getPrecautions()}</div>
     </div>
   );
 };

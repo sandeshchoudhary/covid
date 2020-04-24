@@ -27,12 +27,12 @@ const Transmission = () => {
   const getTransmissions = () => {
     return transmissionList.map((item, index) => {
       return (
-        <Column {...columnOptions} key={index}>
-          <div>
-            {item.logo}
-            <Text>{item.info}</Text>
-          </div>
-        </Column>
+        // <Column {...columnOptions} key={index}>
+        <div key={index}>
+          {item.logo}
+          <Text>{item.info}</Text>
+        </div>
+        // </Column>
       );
     });
   };
@@ -42,9 +42,7 @@ const Transmission = () => {
       <div className="Transmission-heading-container">
         <Heading>Transmission</Heading>
       </div>
-      <div>
-        <Row>{getTransmissions()}</Row>
-      </div>
+      <div>{getTransmissions()}</div>
     </div>
   );
 };

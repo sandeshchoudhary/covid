@@ -4201,10 +4201,10 @@ des.js@^1.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
 
-design-system@^1.0.0-0:
-  version "1.0.0-0"
-  resolved "http://52.35.230.55/design-system/-/design-system-1.0.0-0.tgz#76cfc08531c2dd06bdd8905bff46d26781850423"
-  integrity sha512-b768LnGr8aVvvMZ52OHT5EkJClgEeEWDSoCSxA/xg+408tytRVTOY6B0nNws+8uYd7yBpBT4OpnbKDeSzIKh7A==
+design-system@^1.0.0-2:
+  version "1.0.0-2"
+  resolved "http://52.35.230.55/design-system/-/design-system-1.0.0-2.tgz#b61d49a815ac220c3afd112f3cfaf193d013ff61"
+  integrity sha512-6CugbGEqAQlY+NlQm/9T2YU9ValSl9RT+K3EqtS2yX5T1gngXwIoexZlAGGG8ZTVVzKIgh4d73A9dUI2QPtNxg==
   dependencies:
     "@types/classnames" "^2.2.9"
     axios "^0.19.2"

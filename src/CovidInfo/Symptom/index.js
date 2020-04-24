@@ -32,12 +32,12 @@ const Symptom = () => {
   const getSymptoms = () => {
     return symptomList.map((item, index) => {
       return (
-        <Column {...columnOptions} key={index}>
-          <div>
-            {item.logo}
-            <Text>{item.info}</Text>
-          </div>
-        </Column>
+        // <Column {...columnOptions} key={index}>
+        <div key={index}>
+          {item.logo}
+          <Text>{item.info}</Text>
+        </div>
+        // </Column>
       );
     });
   };
@@ -47,9 +47,7 @@ const Symptom = () => {
       <div className="Symptom-heading-container">
         <Heading>Symptoms</Heading>
       </div>
-      <div>
-        <Row>{getSymptoms()}</Row>
-      </div>
+      <div>{getSymptoms()}</div>
     </div>
   );
 };

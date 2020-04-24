@@ -3,8 +3,24 @@ import ChoroplethMap from './choropleth';
 import { MAP_TYPES, MAP_META } from './constants';
 import { formatDate, formatDateAbsolute, formatNumber } from './common-functions';
 import { formatDistance, format, parse } from 'date-fns';
-import { Heading, Message, Row, Column, Button, Subheading } from 'design-system';
+import { Heading, Message, Row, Column, Button, Subheading, Card, Text } from 'design-system';
 import './Map.css';
+
+const mapColumnOptions = {
+  size: '12',
+  sizeXL: '8',
+  sizeL: '12',
+  sizeM: '8',
+  sizeS: '8'
+};
+
+const infoColumnOptions = {
+  size: '12',
+  sizeXL: '4',
+  sizeL: '12',
+  sizeM: '4',
+  sizeS: '4'
+};
 
 const getRegionFromState = (state) => {
   if (!state) return;
@@ -166,102 +182,106 @@ function MapExplorer({
   }, [panelRegion, stateTestData, testObj]);
 
   return (
-    <div className="MapExplorer fadeInUp" style={{ animationDelay: '1.5s' }} ref={forwardRef}>
-      <div className="Map-header">
-        <Heading size="l">{currentMap.name} Map</Heading>
-        <Subheading appearance="subtle" size="m">
-          {window.innerWidth <= 769 ? 'Tap' : 'Hover'} over a{' '}
-          {currentMap.mapType === MAP_TYPES.COUNTRY ? 'state/UT' : 'district'} for more details
-        </Subheading>
-      </div>
-
-      <div className="Map-stats">
-        <div className="Map-stats-item fadeInUp" style={{ animationDelay: '2s' }}>
-          <h5>{window.innerWidth <= 769 ? 'Cnfmd' : 'Confirmed'}</h5>
-          <div className="stats-bottom">
-            <h1>{formatNumber(panelRegion.confirmed)}</h1>
-            <h6>{}</h6>
+    <Card
+      shadow="medium"
+      style={{
+        minHeight: '200px',
+        padding: '16px',
+        backgroundColor: 'white'
+      }}
+    >
+      <Row>
+        <Column {...mapColumnOptions}>
+          <Heading size="m">{currentMap.name} Map</Heading>
+          <Subheading appearance="subtle" size="s">
+            {window.innerWidth <= 769 ? 'Tap' : 'Hover'} over a{' '}
+            {currentMap.mapType === MAP_TYPES.COUNTRY ? 'state/UT' : 'district'} for more details
+          </Subheading>
+          {currentMap.mapType === MAP_TYPES.STATE ? (
+            <Button appearance="basic" size="tiny" onClick={() => switchMapToState('India')}>
+              Back
+            </Button>
+          ) : null}
+          <ChoroplethMap
+            statistic={statistic}
+            mapMeta={currentMap}
+            mapData={currentMapData}
+            setHoveredRegion={setHoveredRegion}
+            changeMap={switchMapToState}
+            selectedRegion={selectedRegion}
+            setSelectedRegion={setSelectedRegion}
+            isCountryLoaded={isCountryLoaded}
+          />
+        </Column>
+        <Column {...infoColumnOptions}>
+          <Text weight="strong">{name}</Text>
+          <div className="Map-info">
+            <div className="Map-info-item py-4 px-5">
+              <div>
+                <div className="InfoLegend InfoLegend--alert"></div>
+                <Text>Confirmed</Text>
+              </div>
+              <div className="pt-3 pl-5">
+                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.confirmed)}</Text>
+              </div>
+            </div>
+            <div className="Map-info-item py-4 px-5">
+              <div>
+                <div className="InfoLegend InfoLegend--primary"></div>
+                <Text>Active</Text>
+              </div>
+              <div className="pt-3 pl-5">
+                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
+              </div>
+            </div>
+            <div className="Map-info-item py-4 px-5">
+              <div>
+                <div className="InfoLegend InfoLegend--success"></div>
+                <Text>Active</Text>
+              </div>
+              <div className="pt-3 pl-5">
+                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>
+              </div>
+            </div>
+            <div className="Map-info-item py-4 px-5">
+              <div>
+                <div className="InfoLegend InfoLegend--secondary"></div>
+                <Text>Deceased</Text>
+              </div>
+              <div className="pt-3 pl-5">
+                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>
+              </div>
+            </div>
+            <div className="Map-info-item py-4 px-5">
+              <div>
+                <div className="InfoLegend InfoLegend--warning"></div>
+                <Text>Tested</Text>
+                <Text style={{ float: 'right' }}>
+                  {!isNaN(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()))
+                    ? `As of ${format(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()), 'dd MMM')}`
+                    : ''}
+                </Text>
+              </div>
+              <div className="pt-3 pl-5">
+                <Text style={{ fontSize: '28px' }}>{formatNumber(testObj.totaltested)}</Text>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="Map-stats-item Map-stats-item--blue fadeInUp" style={{ animationDelay: '2.1s' }}>
-          <h5>{window.innerWidth <= 769 ? 'Actv' : 'Active'}</h5>
-          <h1>{formatNumber(panelRegion.active)}</h1>
-        </div>
-
-        <div className="Map-stats-item Map-stats-item--green fadeInUp" style={{ animationDelay: '2.2s' }}>
-          <h5>{window.innerWidth <= 769 ? 'Rcvrd' : 'Recovered'}</h5>
-          <h1>{formatNumber(panelRegion.recovered)}</h1>
-        </div>
-
-        <div className="Map-stats-item Map-stats-item--gray fadeInUp" style={{ animationDelay: '2.3s' }}>
-          <h5>{window.innerWidth <= 769 ? 'Dcsd' : 'Deceased'}</h5>
-          <h1>{formatNumber(panelRegion.deaths)}</h1>
-        </div>
-
-        <div className="Map-stats-item Map-stats-item--purple tested fadeInUp" style={{ animationDelay: '2.4s' }}>
-          <h5>{window.innerWidth <= 769 ? 'Tested' : 'Tested'}</h5>
-          <h1>{formatNumber(testObj?.totaltested, window.innerWidth <= 769)}</h1>
-          <h6 className="timestamp">
-            {!isNaN(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()))
-              ? `As of ${format(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()), 'dd MMM')}`
-              : ''}
-          </h6>
-          {/* {testObj?.totaltested?.length > 1 && (
-              <a href={testObj.source} target="_noblank">
-                <Icon.Link />
-              </a>
-            )} */}
-        </div>
-      </div>
-
-      <div className="Map-meta fadeInUp" style={{ animationDelay: '2.4s' }}>
-        <h2>{name}</h2>
-        {lastupdatedtime && (
-          <div
-            className={`Map-meta-last-update ${
-              currentMap.mapType === MAP_TYPES.STATE ? 'district-last-update' : 'state-last-update'
-            }`}
-          >
-            <h6>Last updated</h6>
-            <h3 title={isNaN(Date.parse(formatDate(lastupdatedtime))) ? '' : formatDateAbsolute(lastupdatedtime)}>
-              {isNaN(Date.parse(formatDate(lastupdatedtime)))
-                ? ''
-                : formatDistance(new Date(formatDate(lastupdatedtime)), new Date()) + ' ago'}
-            </h3>
-          </div>
-        )}
-
-        {currentMap.mapType === MAP_TYPES.STATE && currentHoveredRegion.name !== currentMap.name ? (
-          <h1 className="district-confirmed">
-            {currentMapData[currentHoveredRegion.name] ? currentMapData[currentHoveredRegion.name] : 0}
-            <br />
-            <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>confirmed</span>
-          </h1>
-        ) : null}
-
-        {currentMap.mapType === MAP_TYPES.STATE && currentMapData.Unknown > 0 ? (
-          <h4 className="unknown">Districts unknown for {currentMapData.Unknown} people</h4>
-        ) : null}
-
-        {currentMap.mapType === MAP_TYPES.STATE ? (
-          <Button appearance="basic" size="tiny" onClick={() => switchMapToState('India')}>
-            Back
-          </Button>
-        ) : null}
-      </div>
-
-      <ChoroplethMap
-        statistic={statistic}
-        mapMeta={currentMap}
-        mapData={currentMapData}
-        setHoveredRegion={setHoveredRegion}
-        changeMap={switchMapToState}
-        selectedRegion={selectedRegion}
-        setSelectedRegion={setSelectedRegion}
-        isCountryLoaded={isCountryLoaded}
-      />
-    </div>
+          {lastupdatedtime && (
+            <div className="mt-8">
+              <Text appearance="subtle" small={true} className="d-block">
+                Last updated
+              </Text>
+              <Text className="d-block">
+                {isNaN(Date.parse(formatDate(lastupdatedtime)))
+                  ? ''
+                  : formatDistance(new Date(formatDate(lastupdatedtime)), new Date()) + ' ago'}
+              </Text>
+            </div>
+          )}
+        </Column>
+      </Row>
+    </Card>
   );
 }
 
