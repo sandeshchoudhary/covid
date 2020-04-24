@@ -10,7 +10,8 @@ const CovidInfo = () => {
     <Card
       shadow="medium"
       style={{
-        minHeight: '526px',
+        boxSizing: 'border-box',
+        height: '100%',
         padding: '16px',
         backgroundColor: 'white'
       }}
