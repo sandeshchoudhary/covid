@@ -7,46 +7,46 @@ import { ReactComponent as Breath } from './breath.svg';
 
 const symptomList = [
   {
-    logo: <Fever style={{ width: '24px', height: '24px', display: 'block' }} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Fever style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Fever, Cough'
   },
   {
-    logo: <Lungs style={{ width: '24px', height: '24px', display: 'block' }} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Lungs style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Respiratoy Symptoms'
   },
   {
-    logo: <Breath style={{ width: '24px', height: '24px', display: 'block' }} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Breath style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Shortness of Breath'
   }
 ];
-
-const columnOptions = {
-  size: '12',
-  sizeXL: '12',
-  sizeL: '12',
-  sizeM: '12',
-  sizeS: '12'
-};
 
 const Symptom = () => {
   const getSymptoms = () => {
     return symptomList.map((item, index) => {
       return (
-        // <Column {...columnOptions} key={index}>
-        <div key={index}>
+        <div key={index} className="Info-item">
           {item.logo}
           <Text>{item.info}</Text>
         </div>
-        // </Column>
       );
     });
   };
 
   return (
     <div className="Symptom-container p-4">
-      <div className="Symptom-heading-container">
-        <Heading>Symptoms</Heading>
-      </div>
+      <Heading>Symptoms</Heading>
       <div>{getSymptoms()}</div>
     </div>
   );

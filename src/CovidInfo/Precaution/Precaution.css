@@ -1,6 +1,6 @@
-.Precaution-container {
+/* .Precaution-container {
   background-color: var(--stone-lightest);
-  /* min-height: 200px; */
+  min-height: 200px;
   border-radius: 0 var(--spacing-l) var(--spacing-l) 0;
 }
 
@@ -8,4 +8,4 @@
   border-bottom: var(--spacing-s) solid var(--mirch);
   display: inline-block;
   padding-right: var(--spacing-2);
-}
+} */
