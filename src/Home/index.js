@@ -27,6 +27,24 @@ const infoColumnOptions = {
   sizeS: '5'
 };
 
+const columnOptions = {
+  size: '12',
+  sizeXL: '6',
+  sizeL: '12',
+  sizeM: '6',
+  sizeS: '6'
+};
+
+const getWorldStats = (data) => {
+  const stats = {
+    ...data,
+    ...{
+      active: data.confirmed - data.deaths - data.recovered
+    }
+  };
+  return stats;
+};
+
 const Home = () => {
   let history = useHistory();
   const refs = [useRef(), useRef(), useRef()];
@@ -39,8 +57,10 @@ const Home = () => {
   const [activeStateCode, setActiveStateCode] = useState('TT'); // TT -> India
   const [regionHighlighted, setRegionHighlighted] = useState(undefined);
   const [fetched, setFetched] = useState(false);
+  const [paddingClass, setPaddingClass] = useState('px-4');
 
   const { loading, error, data } = useQuery(query.indiaStats);
+  const { loading: worldLoading, error: worldError, data: worldData } = useQuery(query.world);
 
   useEffect(() => {
     if (!loading && data) {
@@ -62,13 +82,28 @@ const Home = () => {
       setIndiaStats(data.india.statewise[index]);
       setFetched(true);
     }
+
+    function handleResize() {
+      if (window.innerWidth <= 769) {
+        setPaddingClass('px-4');
+      } else {
+        setPaddingClass('px-10');
+      }
+    }
+    window.addEventListener('resize', handleResize);
   }, [loading]);
 
   const onMapHighlightChange = useCallback(({ statecode }) => {
     setActiveStateCode(statecode);
   }, []);
 
-  const paddingClass = window.innerWidth <= 769 ? 'px-4' : 'px-10';
+  const drillIndiaCallback = () => {
+    history.push('/india');
+  };
+
+  const drillWorldCallback = () => {
+    history.push('/world');
+  };
 
   return (
     <div className={`py-6 ${paddingClass} Home`}>
@@ -93,6 +128,37 @@ const Home = () => {
           <div style={{ padding: '0 16px' }}>
             <CovidInfo />
           </div>
+        </Column>
+      </Row>
+      <Row>
+        <Column {...columnOptions}>
+          {worldLoading && (
+            <div className="Spinner-container">
+              <Spinner size="large" appearance="primary" />
+            </div>
+          )}
+          {!worldLoading && !worldError && worldData && (
+            <div style={{ padding: '0 16px' }}>
+              <Summary
+                entity="world"
+                showLink={true}
+                stats={getWorldStats(worldData.summary)}
+                drillCallback={drillWorldCallback}
+              />
+            </div>
+          )}
+        </Column>
+        <Column {...columnOptions}>
+          {!fetched && (
+            <div className="Spinner-container">
+              <Spinner size="large" appearance="primary" />
+            </div>
+          )}
+          {fetched && (
+            <div style={{ padding: '0 16px' }}>
+              <Summary entity="india" showLink={true} stats={indiaStats} drillCallback={drillIndiaCallback} />
+            </div>
+          )}
         </Column>
       </Row>
     </div>

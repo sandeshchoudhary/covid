@@ -95,7 +95,8 @@ const Summary = (props) => {
       shadow="medium"
       style={{
         minHeight: '200px',
-        padding: '16px'
+        padding: '16px',
+        backgroundColor: 'white'
       }}
     >
       <Text>{entity.toUpperCase()} STATISTICS</Text>
