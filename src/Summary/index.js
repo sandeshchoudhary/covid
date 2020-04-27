@@ -10,12 +10,12 @@ const columnOptions = {
   details: {
     size: '12',
     sizeXL: '4',
-    sizeM: '4',
+    sizeM: '4'
   },
   chart: {
     size: '12',
     sizeXL: '8',
-    sizeM: '8',
+    sizeM: '8'
   }
 };
 
@@ -24,9 +24,7 @@ const Summary = (props) => {
   let history = useHistory();
 
   const Chart = (props) => {
-    const {
-      stats
-    } = props;
+    const { stats } = props;
 
     const data = [
       {
@@ -48,8 +46,17 @@ const Summary = (props) => {
     const renderActiveShape = (activeShapeProps) => {
       const RADIAN = Math.PI / 180;
       const {
-        cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-        fill, payload, percent, value,
+        cx,
+        cy,
+        midAngle,
+        innerRadius,
+        outerRadius,
+        startAngle,
+        endAngle,
+        fill,
+        payload,
+        percent,
+        value
       } = activeShapeProps;
       const sin = Math.sin(-RADIAN * midAngle);
       const cos = Math.cos(-RADIAN * midAngle);
@@ -85,7 +92,13 @@ const Summary = (props) => {
           />
           <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
           <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-          <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={-18} textAnchor={textAnchor} fill={fill}>{`${payload.name}`}</text>
+          <text
+            x={ex + (cos >= 0 ? 1 : -1) * 12}
+            y={ey}
+            dy={-18}
+            textAnchor={textAnchor}
+            fill={fill}
+          >{`${payload.name}`}</text>
           <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value}`}</text>
           <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
             {`${(percent * 100).toFixed(0)}%`}
@@ -146,7 +159,7 @@ const Summary = (props) => {
       }}
     >
       <div className="Summary-heading">
-        <Heading size="m" >{entity[0].toUpperCase() + entity.slice(1)} Statistics</Heading>
+        <Heading size="m">{entity[0].toUpperCase() + entity.slice(1)} Statistics</Heading>
         <Icon name="open_in_new" appearance="subtle" size="24" onClick={() => handleMore(entity)} />
       </div>
       <Row>

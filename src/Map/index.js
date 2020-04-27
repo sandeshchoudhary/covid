@@ -10,14 +10,14 @@ const mapColumnOptions = {
   size: '12',
   sizeXL: '8',
   sizeL: '8',
-  sizeM: '8',
+  sizeM: '8'
 };
 
 const infoColumnOptions = {
   size: '12',
   sizeXL: '4',
   sizeL: '4',
-  sizeM: '4',
+  sizeM: '4'
 };
 
 const getRegionFromState = (state) => {
@@ -178,7 +178,7 @@ function MapExplorer({
   useEffect(() => {
     setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
   }, [panelRegion, stateTestData, testObj]);
-
+  console.log(testObj);
   return (
     <Card
       shadow="medium"
@@ -261,7 +261,7 @@ function MapExplorer({
                 </Text>
               </div>
               <div className="pt-3 pl-5">
-                <Text style={{ fontSize: '28px' }}>{formatNumber(testObj.totaltested)}</Text>
+                <Text style={{ fontSize: '28px' }}>{testObj ? formatNumber(testObj.totaltested) : '-'}</Text>
               </div>
             </div>
           </div>
@@ -270,7 +270,7 @@ function MapExplorer({
               <Text appearance="subtle" small={true}>
                 Last updated
               </Text>
-              <br/>
+              <br />
               <Text>
                 {isNaN(Date.parse(formatDate(lastupdatedtime)))
                   ? ''

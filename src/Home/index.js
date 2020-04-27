@@ -13,18 +13,18 @@ import './Home.css';
 
 const mapColumnOptions = {
   size: '12',
-  sizeXL: '7',
+  sizeXL: '7'
 };
 
 const infoColumnOptions = {
   size: '12',
-  sizeXL: '5',
+  sizeXL: '5'
 };
 
 const columnOptions = {
   size: '6',
   sizeM: '12',
-  sizeXS: '12',
+  sizeXS: '12'
 };
 
 const getWorldStats = (data) => {
