@@ -9,17 +9,15 @@ import './Map.css';
 const mapColumnOptions = {
   size: '12',
   sizeXL: '8',
-  sizeL: '12',
+  sizeL: '8',
   sizeM: '8',
-  sizeS: '8'
 };
 
 const infoColumnOptions = {
   size: '12',
   sizeXL: '4',
-  sizeL: '12',
+  sizeL: '4',
   sizeM: '4',
-  sizeS: '4'
 };
 
 const getRegionFromState = (state) => {
@@ -269,10 +267,11 @@ function MapExplorer({
           </div>
           {lastupdatedtime && (
             <div className="mt-8">
-              <Text appearance="subtle" small={true} className="d-block">
+              <Text appearance="subtle" small={true}>
                 Last updated
               </Text>
-              <Text className="d-block">
+              <br/>
+              <Text>
                 {isNaN(Date.parse(formatDate(lastupdatedtime)))
                   ? ''
                   : formatDistance(new Date(formatDate(lastupdatedtime)), new Date()) + ' ago'}

@@ -14,25 +14,17 @@ import './Home.css';
 const mapColumnOptions = {
   size: '12',
   sizeXL: '7',
-  sizeL: '12',
-  sizeM: '7',
-  sizeS: '7'
 };
 
 const infoColumnOptions = {
   size: '12',
   sizeXL: '5',
-  sizeL: '12',
-  sizeM: '5',
-  sizeS: '5'
 };
 
 const columnOptions = {
-  size: '12',
-  sizeXL: '6',
-  sizeL: '12',
-  sizeM: '6',
-  sizeS: '6'
+  size: '6',
+  sizeM: '12',
+  sizeXS: '12',
 };
 
 const getWorldStats = (data) => {
@@ -57,7 +49,7 @@ const Home = () => {
   const [activeStateCode, setActiveStateCode] = useState('TT'); // TT -> India
   const [regionHighlighted, setRegionHighlighted] = useState(undefined);
   const [fetched, setFetched] = useState(false);
-  const [paddingClass, setPaddingClass] = useState('px-4');
+  const [paddingClass, setPaddingClass] = useState('px-10');
 
   const { loading, error, data } = useQuery(query.indiaStats);
   const { loading: worldLoading, error: worldError, data: worldData } = useQuery(query.world);
@@ -109,7 +101,7 @@ const Home = () => {
     <div className={`py-6 ${paddingClass} Home`}>
       <Row>
         <Column {...mapColumnOptions}>
-          <div style={{ padding: '0 16px' }}>
+          <div style={{ padding: '0 8px' }}>
             {fetched && (
               <MapExplorer
                 forwardRef={refs[1]}
@@ -125,7 +117,7 @@ const Home = () => {
           </div>
         </Column>
         <Column {...infoColumnOptions}>
-          <div style={{ padding: '0 16px' }}>
+          <div style={{ height: '100%', padding: '0 8px' }}>
             <CovidInfo />
           </div>
         </Column>
@@ -138,7 +130,7 @@ const Home = () => {
             </div>
           )}
           {!worldLoading && !worldError && worldData && (
-            <div style={{ padding: '0 16px' }}>
+            <div style={{ padding: '0 8px' }}>
               <Summary
                 entity="world"
                 showLink={true}
@@ -155,7 +147,7 @@ const Home = () => {
             </div>
           )}
           {fetched && (
-            <div style={{ padding: '0 16px' }}>
+            <div style={{ padding: '0 8px' }}>
               <Summary entity="india" showLink={true} stats={indiaStats} drillCallback={drillIndiaCallback} />
             </div>
           )}
