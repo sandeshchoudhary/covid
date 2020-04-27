@@ -82,7 +82,6 @@ function MapExplorer({
         acc[state.state] = state.confirmed;
         return acc;
       }, {});
-      console.log(currentMapData);
     } else if (currentMap.mapType === MAP_TYPES.STATE) {
       const districtWiseData = (getStateData(stateDistrictWiseDataV2, currentMap.name) || { districtData: {} })
         .districtData;
@@ -118,7 +117,7 @@ function MapExplorer({
             recovered: 0
           };
         }
-        // console.log(districtData, name)
+
         setCurrentHoveredRegion(getRegionFromDistrict(districtData, name));
         const panelRegion = getRegionFromState(states.find((state) => currentMap.name === state.state));
         setPanelRegion(panelRegion);
@@ -178,7 +177,7 @@ function MapExplorer({
   useEffect(() => {
     setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
   }, [panelRegion, stateTestData, testObj]);
-  console.log(testObj);
+
   return (
     <Card
       shadow="medium"

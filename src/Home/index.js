@@ -49,7 +49,7 @@ const Home = () => {
   const [activeStateCode, setActiveStateCode] = useState('TT'); // TT -> India
   const [regionHighlighted, setRegionHighlighted] = useState(undefined);
   const [fetched, setFetched] = useState(false);
-  const [paddingClass, setPaddingClass] = useState('px-10');
+  const [paddingClass, setPaddingClass] = useState('px-4');
 
   const { loading, error, data } = useQuery(query.indiaStats);
   const { loading: worldLoading, error: worldError, data: worldData } = useQuery(query.world);
@@ -72,11 +72,17 @@ const Home = () => {
         return item.state === 'Total';
       });
       setIndiaStats(data.india.statewise[index]);
+
+      if (window.innerWidth <= 900) {
+        setPaddingClass('px-4');
+      } else {
+        setPaddingClass('px-10');
+      }
       setFetched(true);
     }
 
     function handleResize() {
-      if (window.innerWidth <= 769) {
+      if (window.innerWidth <= 900) {
         setPaddingClass('px-4');
       } else {
         setPaddingClass('px-10');
