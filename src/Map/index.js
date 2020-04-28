@@ -178,6 +178,8 @@ function MapExplorer({
     setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
   }, [panelRegion, stateTestData, testObj]);
 
+  console.log(currentMap.mapType);
+
   return (
     <Card
       shadow="medium"
@@ -219,7 +221,12 @@ function MapExplorer({
                 <Text>Confirmed</Text>
               </div>
               <div className="pt-3 pl-5">
-                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.confirmed)}</Text>
+                {currentMap.mapType === MAP_TYPES.COUNTRY && (
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.confirmed)}</Text>
+                )}
+                {currentMap.mapType === MAP_TYPES.STATE && (
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.confirmed)}</Text>
+                )}
               </div>
             </div>
             <div className="Map-info-item py-4 px-5">
@@ -228,7 +235,11 @@ function MapExplorer({
                 <Text>Active</Text>
               </div>
               <div className="pt-3 pl-5">
-                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
+                {currentMap.mapType === MAP_TYPES.COUNTRY ? (
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
+                ) : (
+                  '-'
+                )}
               </div>
             </div>
             <div className="Map-info-item py-4 px-5">
@@ -237,7 +248,11 @@ function MapExplorer({
                 <Text>Active</Text>
               </div>
               <div className="pt-3 pl-5">
-                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>
+                {currentMap.mapType === MAP_TYPES.COUNTRY ? (
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>
+                ) : (
+                  '-'
+                )}
               </div>
             </div>
             <div className="Map-info-item py-4 px-5">
@@ -246,21 +261,31 @@ function MapExplorer({
                 <Text>Deceased</Text>
               </div>
               <div className="pt-3 pl-5">
-                <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>
+                {currentMap.mapType === MAP_TYPES.COUNTRY ? (
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>
+                ) : (
+                  '-'
+                )}
               </div>
             </div>
             <div className="Map-info-item py-4 px-5">
               <div>
                 <div className="InfoLegend InfoLegend--warning"></div>
                 <Text>Tested</Text>
-                <Text style={{ float: 'right' }}>
-                  {!isNaN(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()))
-                    ? `As of ${format(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()), 'dd MMM')}`
-                    : ''}
-                </Text>
+                {currentMap.mapType === MAP_TYPES.COUNTRY && (
+                  <Text style={{ float: 'right' }}>
+                    {!isNaN(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()))
+                      ? `As of ${format(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()), 'dd MMM')}`
+                      : ''}
+                  </Text>
+                )}
               </div>
               <div className="pt-3 pl-5">
-                <Text style={{ fontSize: '28px' }}>{testObj ? formatNumber(testObj.totaltested) : '-'}</Text>
+                {currentMap.mapType === MAP_TYPES.COUNTRY ? (
+                  <Text style={{ fontSize: '28px' }}>{testObj ? formatNumber(testObj.totaltested) : '-'}</Text>
+                ) : (
+                  '-'
+                )}
               </div>
             </div>
           </div>
