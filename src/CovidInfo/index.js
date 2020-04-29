@@ -2,40 +2,25 @@ import React from 'react';
 import Precaution from './Precaution';
 import Symptom from './Symptom';
 import Transmission from './Transmission';
-import { Row, Column } from 'design-system';
-
-const precautionColumnOptions = {
-  size: "12",
-  sizeXL: "8",
-  sizeL: "12",
-  sizeM: "8",
-  sizeS: "8"
-};
-
-const symptonColumnOptions = {
-  size: "12",
-  sizeXL: "4",
-  sizeL: "12",
-  sizeM: "4",
-  sizeS: "4"
-};
+import { Card } from 'design-system';
+import './Info.css';
 
 const CovidInfo = () => {
   return (
-    <div>
-      <Row>
-        <Column {...precautionColumnOptions}>
-          <Precaution />
-        </Column>
-        <Column {...symptonColumnOptions}>
-          <Symptom />
-        </Column>
-      </Row>
-      <Row>
-        <Transmission />
-      </Row>
-    </div>
-  )
-}
+    <Card
+      shadow="medium"
+      style={{
+        boxSizing: 'border-box',
+        height: '100%',
+        padding: '16px',
+        backgroundColor: 'white'
+      }}
+    >
+      <Precaution />
+      <Symptom />
+      <Transmission />
+    </Card>
+  );
+};
 
 export default CovidInfo;

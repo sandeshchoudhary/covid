@@ -1,0 +1,17 @@
+.HealthcareIcon {
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  background-color: var(--secondary-lightest);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: var(--spacing);
+}
+
+.Info-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: var(--spacing);
+}

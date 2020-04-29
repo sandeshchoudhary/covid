@@ -1,0 +1,5 @@
+.Home {
+  background-color: var(--secondary-lightest);
+  height: calc(100vh - 124px);
+  overflow-y: scroll;
+}

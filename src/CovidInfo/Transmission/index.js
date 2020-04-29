@@ -4,50 +4,43 @@ import './Transmission.css';
 import { ReactComponent as Touch } from './touch.svg';
 import { ReactComponent as Spread } from './spread.svg';
 
-
 const transmissionList = [
   {
-    logo: <Touch style={{width: '24px', height: '24px', display: 'block'}} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Touch style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Spreads from contact with infected surfaces or objects'
   },
   {
-    logo: <Spread style={{width: '24px', height: '24px', display: 'block'}} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Spread style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Spreads person-to-person via droplets'
   }
 ];
-
-const columnOptions = {
-  size: "12",
-  sizeXL: "6",
-  sizeL: "12",
-  sizeM: "6",
-  sizeS: "6"
-};
 
 const Transmission = () => {
   const getTransmissions = () => {
     return transmissionList.map((item, index) => {
       return (
-        <Column {...columnOptions} key={index}>
-          <div>
-            {item.logo}
-            <Text>{item.info}</Text>
-          </div>
-        </Column>
-      )
-    })
+        <div key={index} className="Info-item">
+          {item.logo}
+          <Text>{item.info}</Text>
+        </div>
+      );
+    });
   };
 
   return (
     <div className="Transmission-container p-4">
-      <div className="Transmission-heading-container"><Heading>Transmission</Heading></div>
-      <div>
-        <Row>
-          {getTransmissions()}
-        </Row>
-      </div>
+      <Heading>Transmission</Heading>
+      <div>{getTransmissions()}</div>
     </div>
   );
-}
+};
 
 export default Transmission;

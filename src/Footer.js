@@ -2,21 +2,18 @@ import React from 'react';
 import { Link, Text } from 'design-system';
 import { useHistory } from 'react-router-dom';
 
-const Footer = props => {
+const Footer = (props) => {
   const year = new Date().getFullYear();
   let history = useHistory();
 
   return (
     <footer className="App-footer">
-      <Text
-        appearance="white"
-        weight="strong"
-      >
-        &copy; Copyright { year } Sandesh Choudhary
+      <Text appearance="white" weight="strong">
+        &copy; Copyright {year} Sandesh Choudhary
       </Text>
       <Link onClick={() => history.push('/references')}>References</Link>
     </footer>
   );
-}
+};
 
 export default Footer;

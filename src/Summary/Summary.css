@@ -5,52 +5,32 @@
   min-height: 200px;
 }
 
-.Summary-list-item {
+.Summary-heading {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 }
 
-.Legend {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin: 0 4px;
+.Summary-heading .Icon {
+  cursor: pointer;
 }
 
-.Legend--alert {
-  background-color: #d93737;
+.Summary-chart {
+  height: 300px;
 }
 
-.Legend--primary {
-  background-color: #0070dd;
+.Summary-details {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.Legend--success {
-  background-color: #2ea843;
+.Summary-details hr {
+  border: 0.5px solid var(--secondary-light);
+  margin: var(--spacing-2) 0;
 }
 
-.Legend--mirch {
-  background-color: #d93737;
+.Summary-legends .Legend {
+  margin: var(--spacing-2) 0;
 }
-
-.Legend--mirch-dark {
-  background-color: #9c2828;
-}
-
-.Legend--mirch-darker {
-  background-color: #631919;
-}
-
-.Legend--mirch-light {
-  background-color: #eb776c;
-}
-
-.Legend--mirch-lighter {
-  background-color: #f7ada5;
-}
-
-.Legend--mirch-lightest {
-  background-color: #f9e2e2;
-}
-

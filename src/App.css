@@ -22,11 +22,10 @@
   overflow-y: scroll;
 }
 
-.Row > div {
-  margin: 16px 0;
+.Col {
+  margin-top: var(--spacing);
 }
 
 .Link {
   cursor: pointer;
 }
-

@@ -1,63 +1,64 @@
 import React from 'react';
-import { Heading, Text, Row, Column } from 'design-system';
+import { Heading, Text } from 'design-system';
 import './Precaution.css';
 import { ReactComponent as Facemask } from './facemask.svg';
 import { ReactComponent as Handwash } from './handwash.svg';
 import { ReactComponent as Disinfectant } from './disinfectant.svg';
 import { ReactComponent as Distance } from './distance.svg';
 
-
 const precautionList = [
   {
-    logo: <Facemask style={{width: '24px', height: '24px', display: 'block'}} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Facemask style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Use a medical face mask'
   },
   {
-    logo: <Handwash style={{width: '24px', height: '24px', display: 'block'}} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Handwash style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Wash your hands with soap and water'
   },
   {
-    logo: <Disinfectant style={{width: '24px', height: '24px', display: 'block'}} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Disinfectant style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Surfaces need to be wiped with disinfectant regularly'
   },
   {
-    logo: <Distance style={{width: '24px', height: '24px', display: 'block'}} />,
+    logo: (
+      <div className="HealthcareIcon">
+        <Distance style={{ width: '22px', height: '22px', display: 'block' }} />
+      </div>
+    ),
     info: 'Maintain atleast 1 meter (3 feet) distance between yourself & anyone'
   }
 ];
-
-const columnOptions = {
-  size: "12",
-  sizeXL: "6",
-  sizeL: "12",
-  sizeM: "6",
-  sizeS: "6"
-};
 
 const Precaution = () => {
   const getPrecautions = () => {
     return precautionList.map((item, index) => {
       return (
-        <Column {...columnOptions} key={index}>
-          <div>
-            {item.logo}
-            <Text>{item.info}</Text>
-          </div>
-        </Column>
-      )
-    })
+        <div key={index} className="Info-item">
+          {item.logo}
+          <Text>{item.info}</Text>
+        </div>
+      );
+    });
   };
 
   return (
     <div className="Precaution-container p-4">
-      <div className="Precaution-heading-container"><Heading>Precautions</Heading></div>
-      <div>
-        <Row>
-          {getPrecautions()}
-        </Row>
-      </div>
+      <Heading>Precautions</Heading>
+      <div>{getPrecautions()}</div>
     </div>
   );
-}
+};
 
 export default Precaution;
