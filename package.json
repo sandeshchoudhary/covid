@@ -30,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "./predeploy.sh",
-    "deploy": "npm run prepare && CI='' && npm run build && gh-pages -d build",
+    "deploy": "npm run prepare && CI='' && npm run build",
     "lint": "./node_modules/.bin/eslint ./ --cache --ignore-pattern .gitignore",
     "prettier": "./node_modules/prettier/bin-prettier.js src --write"
   },
