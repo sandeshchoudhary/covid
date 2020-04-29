@@ -104,10 +104,10 @@ const Home = () => {
   };
 
   return (
-    <div className={`py-6 ${paddingClass} Home`}>
+    <div className={`py-4 ${paddingClass} Home`}>
       <Row>
         <Column {...mapColumnOptions}>
-          <div style={{ padding: '0 8px' }}>
+          <div style={{ padding: '8px' }}>
             {fetched && (
               <MapExplorer
                 forwardRef={refs[1]}
@@ -123,7 +123,7 @@ const Home = () => {
           </div>
         </Column>
         <Column {...infoColumnOptions}>
-          <div style={{ height: '100%', padding: '0 8px' }}>
+          <div style={{ height: '100%', padding: '8px', boxSizing: 'border-box' }}>
             <CovidInfo />
           </div>
         </Column>
@@ -136,7 +136,7 @@ const Home = () => {
             </div>
           )}
           {!worldLoading && !worldError && worldData && (
-            <div style={{ padding: '0 8px' }}>
+            <div style={{ padding: '8px' }}>
               <Summary
                 entity="world"
                 showLink={true}
@@ -153,7 +153,7 @@ const Home = () => {
             </div>
           )}
           {fetched && (
-            <div style={{ padding: '0 8px' }}>
+            <div style={{ padding: '8px' }}>
               <Summary entity="india" showLink={true} stats={indiaStats} drillCallback={drillIndiaCallback} />
             </div>
           )}
