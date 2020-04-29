@@ -11,7 +11,7 @@
     "apollo-boost": "^0.4.7",
     "d3": "^5.15.1",
     "date-fns": "^2.12.0",
-    "design-system": "^1.0.0-2",
+    "@innovaccer/design-system": "^1.0.0-4",
     "gh-pages": "^2.2.0",
     "graphql": "^15.0.0",
     "moment": "^2.24.0",
@@ -23,7 +23,7 @@
     "recharts": "^1.8.5",
     "topojson": "^3.0.2"
   },
-  "homepage": "https://covid19-tracker.info/",
+  "homepage": "https://aregee.github.io/",
   "scripts": {
     "start": "npm run prepare && react-scripts start",
     "build": "react-scripts build",
