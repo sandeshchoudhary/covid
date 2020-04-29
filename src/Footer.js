@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Text } from 'design-system';
+import { Link, Text } from '@innovaccer/design-system';
 import { useHistory } from 'react-router-dom';
 
 const Footer = (props) => {

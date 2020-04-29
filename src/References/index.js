@@ -1,7 +1,7 @@
 import React from 'react';
 import './References.css';
 import { useHistory } from 'react-router-dom';
-import { BreadcrumbsWrapper, Breadcrumb, Link, Heading, Table, Text } from 'design-system';
+import { BreadcrumbsWrapper, Breadcrumb, Link, Heading, Table, Text } from '@innovaccer/design-system';
 
 const schema = [
   {

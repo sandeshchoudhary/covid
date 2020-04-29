@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Spinner, Text, Heading, Subheading, Row, Column, Button, Legend, Icon } from 'design-system';
+import { Card, Spinner, Text, Heading, Subheading, Row, Column, Button, Legend, Icon } from '@innovaccer/design-system';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer } from 'recharts';
