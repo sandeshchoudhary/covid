@@ -6,7 +6,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './api';
 import Header from './Header';
 import Footer from './Footer';
-import StatsData from './Stats';
+import IndiaStats from './IndiaStats';
+import WorldStats from './WorldStats';
 import Detail from './Detail';
 import References from './References';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
@@ -29,10 +30,10 @@ ReactDOM.render(
               <Detail entity="world" />
             </Route>
             <Route path="/india">
-              <StatsData entity="india" queryType="india" />
+              <IndiaStats entity="india" queryType="india" />
             </Route>
             <Route path="/world">
-              <StatsData entity="world" queryType="countries" />
+              <WorldStats entity="world" queryType="countries" />
               {/* <Stats entity="world" /> */}
             </Route>
             <Route path="/references">

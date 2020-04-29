@@ -1,0 +1,35 @@
+.Stats-container {
+  height: calc(100vh - 110px);
+  overflow-y: scroll;
+}
+
+.Stats-body {
+  padding: 0 16px;
+}
+
+.Stat-table-cell {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+
+.Stats-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  /* margin-bottom: var(--spacing-xl); */
+}
+
+.Calendar-container {
+  height: 70px;
+  margin-bottom: 20px;
+}
+
+.Stats-info {
+  margin-bottom: var(--spacing-l);
+  margin-top: 20px;
+}
