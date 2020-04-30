@@ -1,5 +1,5 @@
 import React from 'react';
-import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner, Card, Input, Heading } from 'design-system';
+import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner, Card, Input, Heading } from '@innovaccer/design-system';
 import { useHistory, useParams } from 'react-router-dom';
 import './Detail.css';
 import StatsCard from '../Summary';

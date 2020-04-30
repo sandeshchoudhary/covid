@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Heading, Subheading, Row, Column, Legend, Icon, DonutChart } from 'design-system';
+import { Card, Heading, Subheading, Row, Column, Legend, Icon, DonutChart } from '@innovaccer/design-system';
 import './Summary.css';
 
 const columnOptions = {

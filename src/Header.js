@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from 'design-system';
+import { Heading } from '@innovaccer/design-system';
 
 const Header = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text } from 'design-system';
+import { Heading, Text } from '@innovaccer/design-system';
 import './Precaution.css';
 import { ReactComponent as Facemask } from './facemask.svg';
 import { ReactComponent as Handwash } from './handwash.svg';

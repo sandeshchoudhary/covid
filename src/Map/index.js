@@ -3,7 +3,7 @@ import ChoroplethMap from './choropleth';
 import { MAP_TYPES, MAP_META } from './constants';
 import { formatDate, formatDateAbsolute, formatNumber } from './common-functions';
 import { formatDistance, format, parse } from 'date-fns';
-import { Heading, Message, Row, Column, Button, Subheading, Card, Text } from 'design-system';
+import { Heading, Message, Row, Column, Button, Subheading, Card, Text } from '@innovaccer/design-system';
 import './Map.css';
 
 const mapColumnOptions = {

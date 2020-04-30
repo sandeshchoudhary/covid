@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text, Row, Column } from 'design-system';
+import { Heading, Text, Row, Column } from '@innovaccer/design-system';
 import './Transmission.css';
 import { ReactComponent as Touch } from './touch.svg';
 import { ReactComponent as Spread } from './spread.svg';

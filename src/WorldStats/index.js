@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Breadcrumb, BreadcrumbsWrapper, Table, Text, Row, Column, Spinner, Input, Card, Heading, Icon } from 'design-system';
+import { Link, Breadcrumb, BreadcrumbsWrapper, Table, Text, Row, Column, Spinner, Input, Card, Heading, Icon } from '@innovaccer/design-system';
 import { useHistory } from 'react-router-dom';
 import query from '../query';
 import { useQuery } from '@apollo/react-hooks';

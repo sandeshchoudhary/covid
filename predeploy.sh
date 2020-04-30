@@ -1,1 +1,1 @@
-cp node_modules/design-system/css/dist/* public/
+cp node_modules/@innovaccer/design-system/css/dist/* public/

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text, Row, Column } from 'design-system';
+import { Heading, Text, Row, Column } from '@innovaccer/design-system';
 import './Symptom.css';
 import { ReactComponent as Fever } from './fever.svg';
 import { ReactComponent as Lungs } from './lungs.svg';
