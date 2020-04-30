@@ -2,17 +2,9 @@ import React from 'react';
 import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner, Card, Input, Heading } from '@innovaccer/design-system';
 import { useHistory, useParams } from 'react-router-dom';
 import './Detail.css';
-import StatsCard from '../Summary';
 import { useQuery } from '@apollo/react-hooks';
 import { getQuery } from '../query';
-
-const columnOptions = {
-  size: '12',
-  sizeXL: '6',
-  sizeL: '12',
-  sizeM: '6',
-  sizeS: '6'
-};
+import Summary from '../Summary';
 
 const loaderSchema = [
   {
@@ -27,25 +19,15 @@ const loaderSchema = [
 const schema = [
   {
     width: 200,
-    pinned: false ? 'LEFT' : undefined,
-    template: ({ x, rowIndex }) => (
-      <div className="Stat-table-cell">
-        <Link onClick={() => null}>{x}</Link>
-      </div>
-    ),
-    get: ({ district }) => ({
-      x: district
-    }),
     name: 'name',
-    displayName: 'Name'
+    displayName: 'Name',
+    pinned: 'LEFT',
+    get: ({ district }) => ({
+      name: district
+    })
   },
   {
     width: 200,
-    pinned: false ? 'LEFT' : undefined,
-    template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
-    get: ({ confirmed }) => ({
-      x: confirmed
-    }),
     name: 'confirmed',
     displayName: 'Confirmed Cases'
   }
@@ -110,9 +92,9 @@ const Detail = (props) => {
         </BreadcrumbsWrapper>
       </header>
       <div className="Detail-body">
-        <Row>
+        <Row group="1" groupXL="2" groupL="2">
           {entity === 'india' && (
-            <Column {...columnOptions}>
+            <Column>
               <div style={{ height: '100%', padding: '8px', boxSizing: 'border-box' }}>
                 <Card
                   shadow="medium"
@@ -123,10 +105,10 @@ const Detail = (props) => {
                     boxSizing: 'border-box'
                   }}
                 >
-                  <div className="Stats-heading" style={{ marginBottom: '12px' }}>
+                  <div className="Stats-heading">
                     <Heading size="m">{`${params.id} Districts`}</Heading>
                   </div>
-                  <Row>
+                  <Row utilityClass="my-5">
                     <Input
                       clearButton={true}
                       value={searchQuery}
@@ -138,22 +120,23 @@ const Detail = (props) => {
                       info="Search on name"
                     />
                   </Row>
-                  <div style={{ marginTop: '16px' }}>
+                  <div>
                     <Table
                       style={{
                         maxHeight: 'calc(100vh - 50vh)'
                       }}
-                      loadMore={() => null}
                       loading={districtLoading || (!districtLoading && !districtData)}
-                      loadingMoreData={false}
-                      getGridActions={false ? undefined : undefined}
                       buffer={10}
-                      dynamicRowHeight={false}
-                      rowHeight={50}
-                      headerHeight={40}
-                      virtualization={false}
+                      rowHeight={40}
                       schema={schema}
-                      pagination={true}
+                      loaderSchema={[
+                        {
+                          width: 200
+                        },
+                        {
+                          width: 200
+                        }
+                      ]}
                       data={getData(districtData ? districtData.district.districtData : [])}
                     />
                   </div>
@@ -161,7 +144,7 @@ const Detail = (props) => {
               </div>
             </Column>
           )}
-          <Column {...columnOptions}>
+          <Column>
             {loading && (
               <div className="Spinner-container">
                 <Spinner size="large" appearance="primary" />
@@ -169,7 +152,7 @@ const Detail = (props) => {
             )}
             {!loading && data && (
               <div style={{ height: '100%', padding: '8px', boxSizing: 'border-box' }}>
-                <StatsCard
+                <Summary
                   entity={params.id}
                   showLink={false}
                   stats={

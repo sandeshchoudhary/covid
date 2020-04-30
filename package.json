@@ -11,7 +11,7 @@
     "apollo-boost": "^0.4.7",
     "d3": "^5.15.1",
     "date-fns": "^2.12.0",
-    "@innovaccer/design-system": "^1.0.0-4",
+    "@innovaccer/design-system": "^1.0.0-5",
     "gh-pages": "^2.2.0",
     "graphql": "^15.0.0",
     "moment": "^2.24.0",
