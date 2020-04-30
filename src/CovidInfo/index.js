@@ -8,7 +8,7 @@ import './Info.css';
 const CovidInfo = () => {
   return (
     <Card
-      shadow="medium"
+      shadow="light"
       style={{
         boxSizing: 'border-box',
         height: '100%',

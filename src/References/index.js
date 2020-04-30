@@ -14,11 +14,8 @@ const schema = [
     get: ({ name }) => ({
       x: name
     }),
-    header: () => (
-      <div className="Stat-table-cell">
-        <Text weight="strong">Name</Text>
-      </div>
-    )
+    name: 'name',
+    displayName: 'Name'
   },
   {
     width: 300,
@@ -30,11 +27,8 @@ const schema = [
     get: ({ link }) => ({
       x: link
     }),
-    header: () => (
-      <div className="Stat-table-cell">
-        <Text weight="strong">Link</Text>
-      </div>
-    )
+    name: 'link',
+    displayName: 'Link'
   }
 ];
 
@@ -141,10 +135,7 @@ const References = () => {
           style={{
             maxHeight: 'calc(100vh - 252px)'
           }}
-          virtualization={false}
           loadMore={() => null}
-          rowHeight={50}
-          headerHeight={40}
         />
       </div>
     </div>

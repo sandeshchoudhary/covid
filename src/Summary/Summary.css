@@ -28,7 +28,7 @@
 
 .Summary-details hr {
   border: 0.5px solid var(--secondary-light);
-  margin: var(--spacing-2) 0;
+  margin: var(--spacing-xl) 0;
 }
 
 .Summary-legends .Legend {
