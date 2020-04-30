@@ -1,6 +1,11 @@
 .Stats-container {
   height: calc(100vh - 110px);
   overflow-y: scroll;
+  background-color: var(--secondary-lightest);
+}
+
+.Stats-header {
+  background-color: var(--secondary-lightest);
 }
 
 .Stats-body {

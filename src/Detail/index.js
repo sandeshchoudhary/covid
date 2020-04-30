@@ -1,5 +1,5 @@
 import React from 'react';
-import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner, Input } from 'design-system';
+import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner, Card, Input, Heading } from 'design-system';
 import { useHistory, useParams } from 'react-router-dom';
 import './Detail.css';
 import StatsCard from '../Summary';
@@ -60,20 +60,12 @@ const Detail = (props) => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const { loading, error, data } = useQuery(getQuery(type, stateName));
 
-  const handleSearch = (value) => {
-    setSearchQuery(value);
-  };
-
   const { loading: districtLoading, error: districtError, data: districtData } = useQuery(
     getQuery('district', stateName)
   );
 
-  const getData = (data) => {
-    if (!data || data.length === 0) return [];
-    return data
-      .filter((item) => {
-        return item.district.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
-      })
+  const handleSearch = (value) => {
+    setSearchQuery(value);
   };
 
   const getWorldStats = (data) => {
@@ -93,10 +85,18 @@ const Detail = (props) => {
     return index > -1 ? data[index] : {};
   };
 
+  const getData = (data) => {
+    if (!data || data.length === 0) return [];
+    return data
+      .filter((item) => {
+        return item.district.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+      })
+  };
+
   return (
     <div className="Detail-container">
       <header>
-        <BreadcrumbsWrapper heading={`${params.id} - Breakdown`}>
+        <BreadcrumbsWrapper heading={`${params.id}`}>
           <Breadcrumb>
             <div className="Breadcrumb-link">
               <Link onClick={() => history.push('/')}>HOME</Link>
@@ -110,39 +110,55 @@ const Detail = (props) => {
         </BreadcrumbsWrapper>
       </header>
       <div className="Detail-body">
-        {entity === 'india' && (
-          <Row>
-            <Input
-              clearButton={true}
-              value={searchQuery}
-              icon="search"
-              name="input"
-              placeholder="Search"
-              onChange={(ev) => handleSearch(ev.target.value)}
-              onClear={() => handleSearch('')}
-              info="Search on name"
-            />
-          </Row>
-        )}
         <Row>
           {entity === 'india' && (
             <Column {...columnOptions}>
-              <Table
-                style={{
-                  maxHeight: 'calc(100vh - 300px)',
-                  marginRight: '16px'
-                }}
-                loadMore={() => null}
-                loading={districtLoading || (!districtLoading && !districtData)}
-                loadingMoreData={false}
-                getGridActions={false ? undefined : undefined}
-                buffer={5}
-                dynamicRowHeight={false}
-                loaderSchema={loaderSchema}
-                schema={schema}
-                data={getData(districtData ? districtData.district.districtData : [])}
-                pagination={true}
-              />
+              <div style={{ height: '100%', padding: '8px', boxSizing: 'border-box' }}>
+                <Card
+                  shadow="medium"
+                  style={{
+                    padding: '16px',
+                    backgroundColor: 'white',
+                    height: '100%',
+                    boxSizing: 'border-box'
+                  }}
+                >
+                  <div className="Stats-heading" style={{ marginBottom: '12px' }}>
+                    <Heading size="m">{`${params.id} Districts`}</Heading>
+                  </div>
+                  <Row>
+                    <Input
+                      clearButton={true}
+                      value={searchQuery}
+                      icon="search"
+                      name="input"
+                      placeholder="Search"
+                      onChange={(ev) => handleSearch(ev.target.value)}
+                      onClear={() => handleSearch('')}
+                      info="Search on name"
+                    />
+                  </Row>
+                  <div style={{ marginTop: '16px' }}>
+                    <Table
+                      style={{
+                        maxHeight: 'calc(100vh - 50vh)'
+                      }}
+                      loadMore={() => null}
+                      loading={districtLoading || (!districtLoading && !districtData)}
+                      loadingMoreData={false}
+                      getGridActions={false ? undefined : undefined}
+                      buffer={10}
+                      dynamicRowHeight={false}
+                      rowHeight={50}
+                      headerHeight={40}
+                      virtualization={false}
+                      schema={schema}
+                      pagination={true}
+                      data={getData(districtData ? districtData.district.districtData : [])}
+                    />
+                  </div>
+                </Card>
+              </div>
             </Column>
           )}
           <Column {...columnOptions}>
@@ -152,14 +168,16 @@ const Detail = (props) => {
               </div>
             )}
             {!loading && data && (
-              <StatsCard
-                entity={params.id}
-                showLink={false}
-                stats={
-                  entity === 'world' ? getWorldStats(data.country.mostRecent) : getStateStats(data.india.statewise)
-                }
-                drillCallback={null}
-              />
+              <div style={{ height: '100%', padding: '8px', boxSizing: 'border-box' }}>
+                <StatsCard
+                  entity={params.id}
+                  showLink={false}
+                  stats={
+                    entity === 'world' ? getWorldStats(data.country.mostRecent) : getStateStats(data.india.statewise)
+                  }
+                  drillCallback={null}
+                />
+              </div>
             )}
           </Column>
         </Row>
