@@ -5,4 +5,5 @@
 .Detail-container {
   height: calc(100vh - 110px);
   overflow-y: scroll;
+  background: var(--secondary-lightest);
 }

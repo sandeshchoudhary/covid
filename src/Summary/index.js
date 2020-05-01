@@ -28,7 +28,7 @@ const getLegends = () => {
 const Summary = (props) => {
   const { entity, drillCallback, stats = {} } = props;
 
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 575);
   
   function handleResize() {
     setIsMobile(window.innerWidth <= 575);

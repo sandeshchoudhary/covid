@@ -18,14 +18,6 @@ import {
 } from 'recharts';
 const { useEffect, useState } = React;
 
-const columnOptions = {
-  size: '12',
-  sizeXL: '6',
-  sizeL: '12',
-  sizeM: '6',
-  sizeS: '6'
-};
-
 const WorldStats = (props) => {
   const { entity, queryType } = props;
   let history = useHistory();
@@ -46,7 +38,9 @@ const WorldStats = (props) => {
   const schema = [
     {
       width: 200,
-      pinned: false ? 'LEFT' : undefined,
+      name: 'name',
+      displayName: 'Name',
+      pinned: 'LEFT',
       template: ({ x, rowIndex }) => (
         <div className="Stat-table-cell">
           <Link onClick={() => handleDrill(x)}>{x}</Link>
@@ -54,51 +48,31 @@ const WorldStats = (props) => {
       ),
       get: ({ name, state }) => ({
         x: entity === 'india' ? state : name
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Name</Text>
-        </div>
-      )
+      })
     },
     {
       width: 100,
-      pinned: false ? 'LEFT' : undefined,
-      template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
+      name: 'confirmed',
+      displayName: 'Confirmed',
       get: ({ mostRecent, confirmed }) => ({
-        x: entity === 'india' ? confirmed : mostRecent.confirmed
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Confirmed</Text>
-        </div>
-      )
+        confirmed: entity === 'india' ? confirmed : mostRecent.confirmed
+      })
     },
     {
       width: 100,
-      pinned: false ? 'LEFT' : undefined,
-      template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
+      name: 'recovered',
+      displayName: 'Recovered',
       get: ({ mostRecent, recovered }) => ({
-        x: entity === 'india' ? recovered : mostRecent.recovered
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Recovered</Text>
-        </div>
-      )
+        recovered: entity === 'india' ? recovered : mostRecent.recovered
+      })
     },
     {
       width: 100,
-      pinned: false ? 'LEFT' : undefined,
-      template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
+      name: 'deaths',
+      displayName: 'Deaths',
       get: ({ mostRecent, deaths }) => ({
-        x: entity === 'india' ? deaths : mostRecent.deaths
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Deaths</Text>
-        </div>
-      )
+        deaths: entity === 'india' ? deaths : mostRecent.deaths
+      })
     }
   ];
 
@@ -146,8 +120,8 @@ const WorldStats = (props) => {
 
       {!error && !loading && data && (
         <div className="Stats-body">
-          <Row>
-            <Column {...columnOptions}>
+          <Row group={'1'} groupXL={'2'}>
+            <Column>
               <div style={{ height: '100%', padding: '8px', boxSizing: 'border-box' }}>
                 <Card
                   shadow="medium"
@@ -158,10 +132,10 @@ const WorldStats = (props) => {
                     boxSizing: 'border-box'
                   }}
                 >
-                  <div className="Stats-heading" style={{ marginBottom: '12px' }}>
+                  <div className="Stats-heading">
                     <Heading size="m">Countries</Heading>
                   </div>
-                  <Row>
+                  <div className="d-flex py-5" >
                     <Input
                       clearButton={true}
                       value={searchQuery}
@@ -172,37 +146,32 @@ const WorldStats = (props) => {
                       onClear={() => handleSearch('')}
                       info="Search on name"
                     />
-                  </Row>
-                  <div style={{ marginTop: '16px' }}>
+                  </div>
+                  <div>
                     <Table
                       style={{
-                        maxHeight: 'calc(100vh - 300px)'
+                        maxHeight: 'calc(100vh - 340px)'
                       }}
-                      loadMore={() => null}
                       loading={loading}
-                      loadingMoreData={false}
-                      getGridActions={false ? undefined : undefined}
-                      buffer={5}
-                      dynamicRowHeight={false}
-                      rowHeight={50}
-                      headerHeight={40}
-                      virtualization={false}
+                      limit={7}
+                      rowHeight={40}
                       schema={schema}
                       pagination={true}
                       data={getData(entity, data)}
                     />
                   </div>
-                  {/* </Row> */}
                 </Card>
               </div>
             </Column>
-            <Column {...columnOptions}>
-              <div style={{ height: '100%', padding: '8px', alignItems: 'center' }}>
+            <Column>
+              <div style={{ boxSizing: 'border-box', height: '100%', padding: '8px', alignItems: 'center' }}>
                 <Card
                   shadow="medium"
                   style={{
                     padding: '16px',
-                    backgroundColor: 'white'
+                    backgroundColor: 'white',
+                    boxSizing: 'border-box',
+                    height: '100%'
                   }}
                 >
                   <div className="Stats-heading" style={{ marginBottom: '21px' }}>
@@ -215,7 +184,7 @@ const WorldStats = (props) => {
                     </div>
                   )}
                   {!loading && data && (
-                    <ResponsiveContainer width={'100%'} height={250}>
+                    <ResponsiveContainer height={420}>
                       <ComposedChart data={getData(entity, data)}>
                         <XAxis dataKey={entity === 'india' ? 'state' : 'name'} />
                         <YAxis />

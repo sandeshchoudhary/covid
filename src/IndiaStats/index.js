@@ -49,8 +49,10 @@ const IndiaStats = (props) => {
 
   const schema = [
     {
-      width: 170,
-      pinned: false ? 'LEFT' : undefined,
+      width: 200,
+      name: 'name',
+      displayName: 'Name',
+      pinned: 'LEFT',
       template: ({ x, rowIndex }) => (
         <div className="Stat-table-cell">
           <Link onClick={() => handleDrill(x)}>{x}</Link>
@@ -58,51 +60,31 @@ const IndiaStats = (props) => {
       ),
       get: ({ name, state }) => ({
         x: entity === 'india' ? state : name
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Name</Text>
-        </div>
-      )
+      })
     },
     {
       width: 100,
-      pinned: false ? 'LEFT' : undefined,
-      template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
+      name: 'confirmed',
+      displayName: 'Confirmed',
       get: ({ mostRecent, confirmed }) => ({
-        x: entity === 'india' ? confirmed : mostRecent.confirmed
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Confirmed</Text>
-        </div>
-      )
+        confirmed: entity === 'india' ? confirmed : mostRecent.confirmed
+      })
     },
     {
       width: 100,
-      pinned: false ? 'LEFT' : undefined,
-      template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
+      name: 'recovered',
+      displayName: 'Recovered',
       get: ({ mostRecent, recovered }) => ({
-        x: entity === 'india' ? recovered : mostRecent.recovered
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Recovered</Text>
-        </div>
-      )
+        recovered: entity === 'india' ? recovered : mostRecent.recovered
+      })
     },
     {
       width: 100,
-      pinned: false ? 'LEFT' : undefined,
-      template: ({ x, rowIndex }) => <div className="Stat-table-cell">{x}</div>,
+      name: 'deaths',
+      displayName: 'Deaths',
       get: ({ mostRecent, deaths }) => ({
-        x: entity === 'india' ? deaths : mostRecent.deaths
-      }),
-      header: () => (
-        <div className="Stat-table-cell">
-          <Text weight="strong">Deaths</Text>
-        </div>
-      )
+        deaths: entity === 'india' ? deaths : mostRecent.deaths
+      })
     }
   ];
 
@@ -210,22 +192,23 @@ const IndiaStats = (props) => {
 
       {!error && !loading && data && (
         <div className="Stats-body">
-          <Row>
-            <Column {...columnOptions}>
-              <div style={{ height: '100%', padding: '8px', boxSizing: 'border-box' }}>
+          <Row group="1" groupXL="2">
+            <Column>
+              <div style={{ height: '100%', padding: '16px 8px', boxSizing: 'border-box' }}>
                 <Card
                   shadow="medium"
                   style={{
+                    position: 'relative',
                     padding: '16px',
                     backgroundColor: 'white',
                     height: '100%',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
                   }}
                 >
-                  <div className="Stats-heading" style={{ marginBottom: '12px' }}>
+                  <div className="Stats-heading">
                     <Heading size="m">States and Uniton Territories</Heading>
                   </div>
-                  <Row>
+                  <div className="d-flex pt-5 pb-4" >
                     <Input
                       clearButton={true}
                       value={searchQuery}
@@ -236,130 +219,138 @@ const IndiaStats = (props) => {
                       onClear={() => handleSearch('')}
                       info="Search on name"
                     />
+                  </div>
+                  <div className="py-5"><Text small={true}>Showing 37 States and UTs</Text></div>
+                  <Row>
+                    <Table
+                      style={{
+                        width: '100%'
+                      }}
+                      loading={loading}
+                      limit={14}
+                      rowHeight={40}
+                      schema={schema}
+                      pagination={true}
+                      data={getData(entity, data)}
+                    />
                   </Row>
-                  <div className={'Stats-info'}><Text small={true}>Showing 37 States and UTs</Text></div>
-                  <Table
-                    style={{
-                      maxHeight: 'calc(100vh - 65px)'
-                    }}
-                    loadMore={() => null}
-                    loading={loading}
-                    loadingMoreData={false}
-                    getGridActions={false ? undefined : undefined}
-                    buffer={10}
-                    dynamicRowHeight={false}
-                    rowHeight={50}
-                    headerHeight={40}
-                    virtualization={false}
-                    schema={schema}
-                    data={getData(entity, data)}
-                  />
-
                 </Card>
               </div>
             </Column>
-            <Column {...columnOptions}>
-              <div style={{ height: '100%', padding: '8px', alignItems: 'center' }}>
-                <Card
-                  shadow="medium"
-                  style={{
-                    padding: '16px',
-                    backgroundColor: 'white'
-                  }}
-                >
-                  <div className="Stats-heading" style={{ marginBottom: '21px' }}>
-                    <Heading size="m">State-wise Statistics</Heading>
-                    <Icon name="autorenew" appearance="subtle" size="24" onClick={onResetSearch} />
-                  </div>
-                  {loading && (
-                    <div className="Spinner-container">
-                      <Spinner size="large" appearance="primary" />
-                    </div>
-                  )}
-                  {!loading && data && (
-                    <ResponsiveContainer width={'100%'} height={250}>
-                      <ComposedChart data={getData(entity, data)}>
-                        <XAxis dataKey={entity === 'india' ? 'state' : 'name'} />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <CartesianGrid stroke="#f5f5f5" />
-                        <Area
-                          name="Recovered"
-                          type="monotone"
-                          dataKey={entity === 'india' ? 'recovered' : 'mostRecent[recovered]'}
-                          fill="#71c077"
-                          stroke="#2ea843"
-                        />
-                        <Bar
-                          name="Confirmed"
-                          barSize={20}
-                          dataKey={entity === 'india' ? 'confirmed' : 'mostRecent[confirmed]'}
-                          fill="#0070dd"
-                        />
-                        <Line
-                          name="Deaths"
-                          type="monotone"
-                          dataKey={entity === 'india' ? 'deaths' : 'mostRecent[deaths]'}
-                          stroke="#d93737"
-                        />
-                      </ComposedChart>
-                    </ResponsiveContainer>
-                  )}
-                </Card>
-                <Card
-                  shadow="medium"
-                  style={{
-                    padding: '16px',
-                    backgroundColor: 'white',
-                    marginTop: '16px',
-                  }}
-                >
-                  <div className="Stats-heading" style={{ marginBottom: '10px' }}>
-                    <Heading size="m">Date-wise Statistics</Heading>
-                    <Icon name="autorenew" appearance="subtle" size="24" onClick={onResetDates} />
-                  </div>
-                  {timeStampsLoading && (
-                    <div className="Spinner-container">
-                      <Spinner size="large" appearance="primary" />
-                    </div>
-                  )}
-                  {!timeStampsLoading && timeStampsData.length > 0 && (
-                    <div>
-                      <div className="Calendar-container" key={reset ? '1' : '2'}>
-                        <RangePicker
-                          withInput={true}
-                          startDate={disabledDate.before}
-                          endDate={disabledDate.after}
-                          disabledBefore={disabledDate.before}
-                          disabledAfter={disabledDate.after}
-                          jumpView={true}
-                          onRangeChange={onRangeChange}
-                        />
+            <Column>
+              <Row group="1" utilityClass="h-100">
+                <Column>
+                  <div style={{ height: '100%', padding: '16px 8px 0 8px', boxSizing: 'border-box' }}>
+                    <Card
+                      shadow="medium"
+                      style={{
+                        padding: '16px',
+                        backgroundColor: 'white',
+                        height: '100%',
+                        boxSizing: 'border-box'
+                      }}
+                    >
+                      <div className="Stats-heading" style={{ marginBottom: '21px' }}>
+                        <Heading size="m">State-wise Statistics</Heading>
+                        <Icon name="autorenew" appearance="subtle" size="24" onClick={onResetSearch} />
                       </div>
-                      <ResponsiveContainer width={'100%'} height={250}>
-                        <LineChart
-                          data={mapData(timeStampsData)}
-                        >
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="date" />
-                          <YAxis />
-                          <Tooltip />
-                          <Legend />
-                          <Line name="Confirmed" type="monotone" dataKey="confirmed" stroke="#8884d8" />
-                          <Line name="Recovered" type="monotone" dataKey="recovered" stroke="#82ca9d" />
-                          <Line name="Deaths" type="monotone" dataKey="deaths" stroke="#d93737" />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                  )}
-                </Card>
-              </div>
+                      {loading && (
+                        <div className="Spinner-container">
+                          <Spinner size="large" appearance="primary" />
+                        </div>
+                      )}
+                      {!loading && data && (
+                        <ResponsiveContainer width={'100%'} height={280}>
+                          <ComposedChart data={getData(entity, data)}>
+                            <XAxis dataKey={entity === 'india' ? 'state' : 'name'} />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <CartesianGrid stroke="#f5f5f5" />
+                            <Area
+                              name="Recovered"
+                              type="monotone"
+                              dataKey={entity === 'india' ? 'recovered' : 'mostRecent[recovered]'}
+                              fill="#71c077"
+                              stroke="#2ea843"
+                            />
+                            <Bar
+                              name="Confirmed"
+                              barSize={20}
+                              dataKey={entity === 'india' ? 'confirmed' : 'mostRecent[confirmed]'}
+                              fill="#0070dd"
+                            />
+                            <Line
+                              name="Deaths"
+                              type="monotone"
+                              dataKey={entity === 'india' ? 'deaths' : 'mostRecent[deaths]'}
+                              stroke="#d93737"
+                            />
+                          </ComposedChart>
+                        </ResponsiveContainer>
+                      )}
+                    </Card>
+                  </div>
+                </Column>
+                <Column>
+                  <div style={{ height: '100%', padding: '16px 8px', boxSizing: 'border-box' }}>
+                    <Card
+                      shadow="medium"
+                      style={{
+                        padding: '16px',
+                        backgroundColor: 'white',
+                        height: '100%',
+                        boxSizing: 'border-box'
+                      }}
+                    >
+                      <div className="Stats-heading" style={{ marginBottom: '10px' }}>
+                        <Heading size="m">Date-wise Statistics</Heading>
+                        <Icon name="autorenew" appearance="subtle" size="24" onClick={onResetDates} />
+                      </div>
+                      {timeStampsLoading && (
+                        <div className="Spinner-container">
+                          <Spinner size="large" appearance="primary" />
+                        </div>
+                      )}
+                      {!timeStampsLoading && timeStampsData.length > 0 && (
+                        <div>
+                          <div className="Calendar-container mt-4 mb-7" key={reset ? '1' : '2'}>
+                            <RangePicker
+                              withInput={true}
+                              startDate={disabledDate.before}
+                              endDate={disabledDate.after}
+                              disabledBefore={disabledDate.before}
+                              disabledAfter={disabledDate.after}
+                              jumpView={true}
+                              onRangeChange={onRangeChange}
+                            />
+                          </div>
+                          <ResponsiveContainer width={'100%'} height={280}>
+                            <LineChart
+                              data={mapData(timeStampsData)}
+                            >
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="date" />
+                              <YAxis />
+                              <Tooltip />
+                              <Legend />
+                              <Line name="Confirmed" type="monotone" dataKey="confirmed" stroke="#8884d8" />
+                              <Line name="Recovered" type="monotone" dataKey="recovered" stroke="#82ca9d" />
+                              <Line name="Deaths" type="monotone" dataKey="deaths" stroke="#d93737" />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
+                      )}
+                    </Card>
+                  </div>
+                </Column>
+              </Row>
             </Column>
           </Row>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 
