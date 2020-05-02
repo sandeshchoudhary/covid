@@ -23,7 +23,7 @@
     "recharts": "^1.8.5",
     "topojson": "^3.0.2"
   },
-  "homepage": "https://sandeshchoudhary.github.io/covid",
+  "homepage": "https://sandeshchoudhary.github.io/",
   "scripts": {
     "start": "npm run prepare && react-scripts start",
     "build": "react-scripts build",
