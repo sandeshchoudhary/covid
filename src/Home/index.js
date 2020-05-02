@@ -96,11 +96,11 @@ const Home = () => {
   }, []);
 
   const drillIndiaCallback = () => {
-    history.push('/india');
+    history.push(`/india`);
   };
 
   const drillWorldCallback = () => {
-    history.push('/world');
+    history.push(`/world`);
   };
 
   return (

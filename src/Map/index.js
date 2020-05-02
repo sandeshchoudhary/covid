@@ -238,8 +238,8 @@ function MapExplorer({
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
                 ) : (
-                    '-'
-                  )}
+                  '-'
+                )}
               </div>
             </div>
             <div className="Map-info-item py-4 px-5">
@@ -251,8 +251,8 @@ function MapExplorer({
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>
                 ) : (
-                    '-'
-                  )}
+                  '-'
+                )}
               </div>
             </div>
             <div className="Map-info-item py-4 px-5">
@@ -264,8 +264,8 @@ function MapExplorer({
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>
                 ) : (
-                    '-'
-                  )}
+                  '-'
+                )}
               </div>
             </div>
             <div className="Map-info-item py-4 px-5">
@@ -284,8 +284,8 @@ function MapExplorer({
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
                   <Text style={{ fontSize: '28px' }}>{testObj ? formatNumber(testObj.totaltested) : '-'}</Text>
                 ) : (
-                    '-'
-                  )}
+                  '-'
+                )}
               </div>
             </div>
           </div>

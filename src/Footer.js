@@ -9,7 +9,7 @@ const Footer = (props) => {
   return (
     <footer className="App-footer">
       <Text appearance="white" weight="strong">
-        &copy; Copyright {year} Sandesh Choudhary
+        &copy; Copyright {year} Engine
       </Text>
       <Link onClick={() => history.push('/references')}>References</Link>
     </footer>

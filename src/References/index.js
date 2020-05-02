@@ -123,7 +123,7 @@ const References = () => {
       <BreadcrumbsWrapper heading="References">
         <Breadcrumb>
           <div className="Breadcrumb-link">
-            <Link onClick={() => history.push('/')}>Home</Link>
+            <Link onClick={() => history.push(`/`)}>Home</Link>
           </div>
         </Breadcrumb>
       </BreadcrumbsWrapper>

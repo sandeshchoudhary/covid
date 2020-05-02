@@ -1,5 +1,17 @@
 import React from 'react';
-import { BreadcrumbsWrapper, Breadcrumb, Link, Column, Row, Text, Table, Spinner, Card, Input, Heading } from '@innovaccer/design-system';
+import {
+  BreadcrumbsWrapper,
+  Breadcrumb,
+  Link,
+  Column,
+  Row,
+  Text,
+  Table,
+  Spinner,
+  Card,
+  Input,
+  Heading
+} from '@innovaccer/design-system';
 import { useHistory, useParams } from 'react-router-dom';
 import './Detail.css';
 import { useQuery } from '@apollo/react-hooks';
@@ -8,13 +20,12 @@ import Summary from '../Summary';
 
 const loaderSchema = [
   {
-    width: 200,
+    width: 200
   },
   {
-    width: 200,
-  },
+    width: 200
+  }
 ];
-
 
 const schema = [
   {
@@ -69,10 +80,9 @@ const Detail = (props) => {
 
   const getData = (data) => {
     if (!data || data.length === 0) return [];
-    return data
-      .filter((item) => {
-        return item.district.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
-      })
+    return data.filter((item) => {
+      return item.district.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+    });
   };
 
   return (
@@ -81,7 +91,7 @@ const Detail = (props) => {
         <BreadcrumbsWrapper heading={`${params.id}`}>
           <Breadcrumb>
             <div className="Breadcrumb-link">
-              <Link onClick={() => history.push('/')}>HOME</Link>
+              <Link onClick={() => history.push(`/`)}>HOME</Link>
             </div>
           </Breadcrumb>
           <Breadcrumb>

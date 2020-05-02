@@ -1,5 +1,18 @@
 import React from 'react';
-import { Link, Breadcrumb, BreadcrumbsWrapper, Table, Text, Row, Column, Spinner, Input, Card, Heading, Icon } from '@innovaccer/design-system';
+import {
+  Link,
+  Breadcrumb,
+  BreadcrumbsWrapper,
+  Table,
+  Text,
+  Row,
+  Column,
+  Spinner,
+  Input,
+  Card,
+  Heading,
+  Icon
+} from '@innovaccer/design-system';
 import { useHistory } from 'react-router-dom';
 import query from '../query';
 import { useQuery } from '@apollo/react-hooks';
@@ -33,7 +46,7 @@ const WorldStats = (props) => {
 
   const onResetSearch = () => {
     setSearchQuery('');
-  }
+  };
 
   const schema = [
     {
@@ -107,10 +120,10 @@ const WorldStats = (props) => {
   return (
     <div className="Stats-container">
       <header className="Stats-header">
-        <BreadcrumbsWrapper heading='World Statistics'>
+        <BreadcrumbsWrapper heading="World Statistics">
           <Breadcrumb>
             <div className="Breadcrumb-link">
-              <Link onClick={() => history.push('/')}>HOME</Link>
+              <Link onClick={() => history.push(`/`)}>HOME</Link>
             </div>
           </Breadcrumb>
         </BreadcrumbsWrapper>
@@ -135,7 +148,7 @@ const WorldStats = (props) => {
                   <div className="Stats-heading">
                     <Heading size="m">Countries</Heading>
                   </div>
-                  <div className="d-flex py-5" >
+                  <div className="d-flex py-5">
                     <Input
                       clearButton={true}
                       value={searchQuery}

@@ -1,5 +1,19 @@
 import React from 'react';
-import { Link, Breadcrumb, BreadcrumbsWrapper, Table, Text, Row, Column, Spinner, Input, Card, Heading, RangePicker, Icon } from '@innovaccer/design-system';
+import {
+  Link,
+  Breadcrumb,
+  BreadcrumbsWrapper,
+  Table,
+  Text,
+  Row,
+  Column,
+  Spinner,
+  Input,
+  Card,
+  Heading,
+  RangePicker,
+  Icon
+} from '@innovaccer/design-system';
 import { useHistory } from 'react-router-dom';
 import query from '../query';
 import { useQuery } from '@apollo/react-hooks';
@@ -90,34 +104,33 @@ const IndiaStats = (props) => {
 
   useEffect(() => {
     setTimeStampsLoading(true);
-    axios.get(`https://api.covid19india.org/data.json`)
-      .then(res => {
-        const { cases_time_series: data } = res.data;
-        const sDate = new Date(data[0].date + "2020");
-        const eDate = new Date(data[data.length - 1].date + "2020");
-        const newDisabledDate = { ...date, before: sDate, after: eDate };
-        setTimeStampsLoading(false);
-        setTimeStampsData(data);
-        setDisabledDate(newDisabledDate);
-      })
+    axios.get(`https://api.covid19india.org/data.json`).then((res) => {
+      const { cases_time_series: data } = res.data;
+      const sDate = new Date(data[0].date + '2020');
+      const eDate = new Date(data[data.length - 1].date + '2020');
+      const newDisabledDate = { ...date, before: sDate, after: eDate };
+      setTimeStampsLoading(false);
+      setTimeStampsData(data);
+      setDisabledDate(newDisabledDate);
+    });
   }, []);
 
   const onResetSearch = () => {
     setSearchQuery('');
-  }
+  };
 
   const onResetDates = () => {
     const { before, after } = disabledDate;
     setDate({ startDate: before, endDate: after });
     setReset(true);
-  }
+  };
 
   const onRangeChange = (sDate, eDate) => {
     const startDate = new Date(sDate);
     const endDate = new Date(eDate);
     setDate({ startDate, endDate });
     setReset(false);
-  }
+  };
 
   const mapData = (list) => {
     let startInd = 0;
@@ -136,17 +149,15 @@ const IndiaStats = (props) => {
       });
     }
 
-    return list
-      .slice(startInd, lastInd + 1)
-      .map(item => {
-        return {
-          date: item.date,
-          confirmed: parseInt(item.totalconfirmed),
-          recovered: Number(item.totalrecovered),
-          deaths: Number(item.totaldeceased),
-        }
-      });
-  }
+    return list.slice(startInd, lastInd + 1).map((item) => {
+      return {
+        date: item.date,
+        confirmed: parseInt(item.totalconfirmed),
+        recovered: Number(item.totalrecovered),
+        deaths: Number(item.totaldeceased)
+      };
+    });
+  };
 
   const getData = (entity, data = {}) => {
     const list = entity === 'india' ? data.india.statewise : data.countries;
@@ -179,10 +190,10 @@ const IndiaStats = (props) => {
   return (
     <div className="Stats-container">
       <header>
-        <BreadcrumbsWrapper heading='India Statistics'>
+        <BreadcrumbsWrapper heading="India Statistics">
           <Breadcrumb>
             <div className="Breadcrumb-link">
-              <Link onClick={() => history.push('/')}>HOME</Link>
+              <Link onClick={() => history.push(`/`)}>HOME</Link>
             </div>
           </Breadcrumb>
         </BreadcrumbsWrapper>
@@ -202,13 +213,13 @@ const IndiaStats = (props) => {
                     padding: '16px',
                     backgroundColor: 'white',
                     height: '100%',
-                    boxSizing: 'border-box',
+                    boxSizing: 'border-box'
                   }}
                 >
                   <div className="Stats-heading">
                     <Heading size="m">States and Uniton Territories</Heading>
                   </div>
-                  <div className="d-flex pt-5 pb-4" >
+                  <div className="d-flex pt-5 pb-4">
                     <Input
                       clearButton={true}
                       value={searchQuery}
@@ -220,7 +231,9 @@ const IndiaStats = (props) => {
                       info="Search on name"
                     />
                   </div>
-                  <div className="py-5"><Text small={true}>Showing 37 States and UTs</Text></div>
+                  <div className="py-5">
+                    <Text small={true}>Showing 37 States and UTs</Text>
+                  </div>
                   <Row>
                     <Table
                       style={{
@@ -326,9 +339,7 @@ const IndiaStats = (props) => {
                             />
                           </div>
                           <ResponsiveContainer width={'100%'} height={280}>
-                            <LineChart
-                              data={mapData(timeStampsData)}
-                            >
+                            <LineChart data={mapData(timeStampsData)}>
                               <CartesianGrid strokeDasharray="3 3" />
                               <XAxis dataKey="date" />
                               <YAxis />
@@ -348,9 +359,8 @@ const IndiaStats = (props) => {
             </Column>
           </Row>
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 
