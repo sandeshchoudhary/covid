@@ -245,7 +245,7 @@ function MapExplorer({
             <div className="Map-info-item py-4 px-5">
               <div>
                 <div className="InfoLegend InfoLegend--success"></div>
-                <Text>Active</Text>
+                <Text>Recovered</Text>
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
