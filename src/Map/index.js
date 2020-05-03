@@ -178,8 +178,6 @@ function MapExplorer({
     setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
   }, [panelRegion, stateTestData, testObj]);
 
-  console.log(currentMap.mapType);
-
   return (
     <Card
       shadow="light"
@@ -272,13 +270,13 @@ function MapExplorer({
               <div>
                 <div className="InfoLegend InfoLegend--warning"></div>
                 <Text>Tested</Text>
-                {/* {currentMap.mapType === MAP_TYPES.COUNTRY && (
+                {currentMap.mapType === MAP_TYPES.COUNTRY && (
                   <Text style={{ float: 'right' }}>
                     {!isNaN(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()))
                       ? `As of ${format(parse(testObj?.updatedon, 'dd/MM/yyyy', new Date()), 'dd MMM')}`
                       : ''}
                   </Text>
-                )} */}
+                )}
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (

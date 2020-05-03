@@ -85,7 +85,7 @@ const Summary = (props) => {
               withActiveSegment={!isMobile}
               withTooltip={isMobile}
               donutWidth={60}
-              colors={['primary', 'success', 'alert']}
+              colors={['primary', 'alert', 'success']}
             />
           </div>
         </Column>
