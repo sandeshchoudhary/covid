@@ -6,7 +6,6 @@ import { MAP_META } from '../Map/constants';
 import query from '../query';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
-import { formatDate, formatDateAbsolute, preprocessTimeseries, parseStateTimeseries } from '../Map/common-functions';
 import MapExplorer from '../Map';
 import CovidInfo from '../CovidInfo';
 import './Home.css';
@@ -49,7 +48,7 @@ const Home = () => {
   const [activeStateCode, setActiveStateCode] = useState('TT'); // TT -> India
   const [regionHighlighted, setRegionHighlighted] = useState(undefined);
   const [fetched, setFetched] = useState(false);
-  const [paddingClass, setPaddingClass] = useState('px-4');
+  const [paddingClass, setPaddingClass] = useState(window.innerWidth <= 900 ? 'px-4' : 'px-10');
 
   const { loading, error, data } = useQuery(query.indiaStats);
   const { loading: worldLoading, error: worldError, data: worldData } = useQuery(query.world);
@@ -107,19 +106,17 @@ const Home = () => {
     <div className={`py-4 ${paddingClass} Home`}>
       <Row>
         <Column {...mapColumnOptions}>
-          <div style={{ padding: '8px' }}>
-            {fetched && (
-              <MapExplorer
-                forwardRef={refs[1]}
-                mapMeta={MAP_META.India}
-                states={states}
-                stateDistrictWiseDataV2={stateDistrictWiseData}
-                stateTestData={stateTestData}
-                regionHighlighted={regionHighlighted}
-                onMapHighlightChange={onMapHighlightChange}
-                isCountryLoaded={true}
-              />
-            )}
+          <div style={{ padding: '8px', height: '550px', boxSizing: 'border-box' }}>
+            <MapExplorer
+              forwardRef={refs[1]}
+              mapMeta={MAP_META.India}
+              states={states}
+              stateDistrictWiseDataV2={stateDistrictWiseData}
+              stateTestData={stateTestData}
+              regionHighlighted={regionHighlighted}
+              onMapHighlightChange={onMapHighlightChange}
+              isCountryLoaded={true}
+            />
           </div>
         </Column>
         <Column {...infoColumnOptions}>
@@ -130,33 +127,19 @@ const Home = () => {
       </Row>
       <Row>
         <Column {...columnOptions}>
-          {worldLoading && (
-            <div className="Spinner-container">
-              <Spinner size="large" appearance="primary" />
-            </div>
-          )}
-          {!worldLoading && !worldError && worldData && (
-            <div style={{ padding: '8px' }}>
-              <Summary
-                entity="world"
-                showLink={true}
-                stats={getWorldStats(worldData.summary)}
-                drillCallback={drillWorldCallback}
-              />
-            </div>
-          )}
+          <div style={{ padding: '8px' }}>
+            <Summary
+              entity="world"
+              showLink={true}
+              stats={worldData ? getWorldStats(worldData.summary) : {}}
+              drillCallback={drillWorldCallback}
+            />
+          </div>
         </Column>
         <Column {...columnOptions}>
-          {!fetched && (
-            <div className="Spinner-container">
-              <Spinner size="large" appearance="primary" />
-            </div>
-          )}
-          {fetched && (
-            <div style={{ padding: '8px' }}>
-              <Summary entity="india" showLink={true} stats={indiaStats} drillCallback={drillIndiaCallback} />
-            </div>
-          )}
+          <div style={{ padding: '8px' }}>
+            <Summary entity="india" showLink={true} stats={indiaStats} drillCallback={drillIndiaCallback} />
+          </div>
         </Column>
       </Row>
     </div>
