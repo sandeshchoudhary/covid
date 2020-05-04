@@ -141,7 +141,10 @@ const query = {
         districtData {
           district
           confirmed
+          active
+          deceased
           lastupdatedtime
+          recovered
         }
       }
       india {

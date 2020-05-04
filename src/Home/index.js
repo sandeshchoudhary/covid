@@ -58,11 +58,11 @@ const Home = () => {
     if (!loading && data) {
       setStates(data.india.statewise);
       setLastUpdated(data.india.statewise[0].lastupdatedtime);
-      const testData = data.tests.reverse();
+      const testData = [...data.tests].reverse();
       const totalTest = data.india.tested[data.india.tested.length - 1];
       testData.push({
         updatedon: totalTest.updatetimestamp.split(' ')[0],
-        totaltested: totalTest.totalindividualstested,
+        totaltested: totalTest.totalsamplestested,
         source: totalTest.source,
         state: 'Total' // India
       });

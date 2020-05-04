@@ -114,7 +114,8 @@ function MapExplorer({
             confirmed: 0,
             active: 0,
             deaths: 0,
-            recovered: 0
+            recovered: 0,
+            district: name
           };
         }
 
@@ -236,7 +237,7 @@ function MapExplorer({
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
                 ) : (
-                  '-'
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.active)}</Text>
                 )}
               </div>
             </div>
@@ -249,7 +250,7 @@ function MapExplorer({
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>
                 ) : (
-                  '-'
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.recovered)}</Text>
                 )}
               </div>
             </div>
@@ -262,7 +263,7 @@ function MapExplorer({
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>
                 ) : (
-                  '-'
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.deceased)}</Text>
                 )}
               </div>
             </div>
