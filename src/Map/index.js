@@ -3,7 +3,7 @@ import ChoroplethMap from './choropleth';
 import { MAP_TYPES, MAP_META } from './constants';
 import { formatDate, formatDateAbsolute, formatNumber } from './common-functions';
 import { formatDistance, format, parse } from 'date-fns';
-import { Heading, Message, Row, Column, Button, Subheading, Card, Text, Placeholder, PlaceholderParagraph, Spinner } from '@innovaccer/design-system';
+import { Heading, Message, Row, Column, Button, Subheading, Card, Text } from '@innovaccer/design-system';
 import './Map.css';
 
 const mapColumnOptions = {
@@ -173,26 +173,17 @@ function MapExplorer({
     [setHoveredRegion, stateDistrictWiseDataV2, states]
   );
 
-  const { name, lastupdatedtime } = currentHoveredRegion || {};
+  const { name, lastupdatedtime } = currentHoveredRegion;
 
   useEffect(() => {
-    if (Object.keys(stateTestData).length) {
-      if (panelRegion) setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
-    }
-  }, [panelRegion, stateTestData]);
-
-  useEffect(() => {
-    const totalRegion = getRegionFromState(states[0]);
-    setPanelRegion(totalRegion);
-  }, [states]);
+    setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
+  }, [panelRegion, stateTestData, testObj]);
 
   return (
     <Card
       shadow="light"
       style={{
-        height: '100%',
-        boxSizing: 'border-box',
-        // minHeight: '200px',
+        minHeight: '200px',
         padding: '16px',
         backgroundColor: 'white'
       }}
@@ -209,23 +200,16 @@ function MapExplorer({
               Back
             </Button>
           ) : null}
-          {Object.keys(currentMapData).length ? (
-            <ChoroplethMap
-              statistic={statistic}
-              mapMeta={currentMap}
-              mapData={currentMapData}
-              setHoveredRegion={setHoveredRegion}
-              changeMap={switchMapToState}
-              selectedRegion={selectedRegion}
-              setSelectedRegion={setSelectedRegion}
-              isCountryLoaded={isCountryLoaded}
-            />
-          ) : (
-            <div className="Spinner-container h-100">
-              <Spinner />
-            </div>
-          )}
-
+          <ChoroplethMap
+            statistic={statistic}
+            mapMeta={currentMap}
+            mapData={currentMapData}
+            setHoveredRegion={setHoveredRegion}
+            changeMap={switchMapToState}
+            selectedRegion={selectedRegion}
+            setSelectedRegion={setSelectedRegion}
+            isCountryLoaded={isCountryLoaded}
+          />
         </Column>
         <Column {...infoColumnOptions}>
           <Text weight="strong">{name}</Text>
@@ -237,13 +221,7 @@ function MapExplorer({
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY && (
-                  panelRegion ? (
-                    <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.confirmed)}</Text>
-                  ) : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.confirmed)}</Text>
                 )}
                 {currentMap.mapType === MAP_TYPES.STATE && (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.confirmed)}</Text>
@@ -257,13 +235,7 @@ function MapExplorer({
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
-                  panelRegion ? (
-                    <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
-                  ) : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
                 ) : (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.active)}</Text>
                 )}
@@ -276,12 +248,7 @@ function MapExplorer({
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
-                  panelRegion ? (<Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>)
-                    : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>
                 ) : (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.recovered)}</Text>
                 )}
@@ -294,12 +261,7 @@ function MapExplorer({
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
-                  panelRegion ? (<Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>)
-                    : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
+                  <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>
                 ) : (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.deceased)}</Text>
                 )}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Heading, Subheading, Row, Column, Legend, Icon, DonutChart, Placeholder, PlaceholderParagraph, Spinner } from '@innovaccer/design-system';
+import { Card, Heading, Subheading, Row, Column, Legend, Icon, DonutChart } from '@innovaccer/design-system';
 import './Summary.css';
 
 const columnOptions = {
@@ -71,13 +71,7 @@ const Summary = (props) => {
           <div className="Summary-details">
             <div className="Summary-header">
               <Subheading>Total Patients</Subheading>
-              {stats.confirmed ? (
-                <Heading size="xl">{(+stats.confirmed).toLocaleString()}</Heading>
-              ) : (
-                  <Placeholder>
-                    <PlaceholderParagraph length="medium" />
-                  </Placeholder>
-                )}
+              <Heading size="xl">{(+stats.confirmed).toLocaleString()}</Heading>
             </div>
             <hr />
             {getLegends()}
@@ -85,21 +79,14 @@ const Summary = (props) => {
         </Column>
         <Column {...columnOptions.chart}>
           <div className="Summary-chart">
-            {Object.keys(stats).length ? (
-              <DonutChart
-                data={data}
-                withCenterText={false}
-                withActiveSegment={!isMobile}
-                withTooltip={isMobile}
-                donutWidth={60}
-                colors={['primary', 'success', 'alert']}
-              />
-            ) : (
-                <div className="Spinner-container h-100">
-                  <Spinner />
-                </div>
-              )
-            }
+            <DonutChart
+              data={data}
+              withCenterText={false}
+              withActiveSegment={!isMobile}
+              withTooltip={isMobile}
+              donutWidth={60}
+              colors={['primary', 'alert', 'success']}
+            />
           </div>
         </Column>
       </Row>
