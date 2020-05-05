@@ -55,7 +55,7 @@ const schema = [
   },
   {
     width: 100,
-    name: 'deaths',
+    name: 'deceased',
     displayName: 'Deaths'
   }
 ];
