@@ -17,7 +17,6 @@ import {
 import { useHistory } from 'react-router-dom';
 import query from '../query';
 import { useQuery } from '@apollo/react-hooks';
-import axios from 'axios';
 
 import './Stats.css';
 import {
@@ -47,8 +46,6 @@ const IndiaStats = (props) => {
   const { entity, queryType } = props;
   let history = useHistory();
   const [searchQuery, setSearchQuery] = useState('');
-  const [timeStampsLoading, setTimeStampsLoading] = useState(false);
-  const [timeStampsData, setTimeStampsData] = useState([]);
   const [date, setDate] = useState();
   const [disabledDate, setDisabledDate] = useState({});
   const [reset, setReset] = useState(false);
@@ -63,7 +60,7 @@ const IndiaStats = (props) => {
 
   const schema = [
     {
-      width: 200,
+      width: 170,
       name: 'name',
       displayName: 'Name',
       pinned: 'LEFT',
@@ -102,18 +99,17 @@ const IndiaStats = (props) => {
     }
   ];
 
+  const { loading, error, data } = useQuery(query[queryType]);
+
   useEffect(() => {
-    setTimeStampsLoading(true);
-    axios.get(`https://api.covid19india.org/data.json`).then((res) => {
-      const { cases_time_series: data } = res.data;
-      const sDate = new Date(data[0].date + '2020');
-      const eDate = new Date(data[data.length - 1].date + '2020');
+    if (!loading && data) {
+      const { casesTimeSeries: timeData } = data.india;
+      const sDate = new Date(timeData[0].date + '2020');
+      const eDate = new Date(timeData[timeData.length - 1].date + '2020');
       const newDisabledDate = { ...date, before: sDate, after: eDate };
-      setTimeStampsLoading(false);
-      setTimeStampsData(data);
       setDisabledDate(newDisabledDate);
-    });
-  }, []);
+    }
+  }, [loading]);
 
   const onResetSearch = () => {
     setSearchQuery('');
@@ -132,7 +128,8 @@ const IndiaStats = (props) => {
     setReset(false);
   };
 
-  const mapData = (list) => {
+  const mapData = (data = {}) => {
+    const list = data.india.casesTimeSeries;
     let startInd = 0;
     let lastInd = list.length - 1;
 
@@ -184,8 +181,6 @@ const IndiaStats = (props) => {
         return item;
       });
   };
-
-  const { loading, error, data } = useQuery(query[queryType]);
 
   return (
     <div className="Stats-container">
@@ -320,12 +315,12 @@ const IndiaStats = (props) => {
                         <Heading size="m">Date-wise Statistics</Heading>
                         <Icon name="autorenew" appearance="subtle" size="24" onClick={onResetDates} />
                       </div>
-                      {timeStampsLoading && (
+                      {loading && (
                         <div className="Spinner-container">
                           <Spinner size="large" appearance="primary" />
                         </div>
                       )}
-                      {!timeStampsLoading && timeStampsData.length > 0 && (
+                      {!loading && data && (
                         <div>
                           <div className="Calendar-container mt-4 mb-7" key={reset ? '1' : '2'}>
                             <RangePicker
@@ -339,7 +334,7 @@ const IndiaStats = (props) => {
                             />
                           </div>
                           <ResponsiveContainer width={'100%'} height={280}>
-                            <LineChart data={mapData(timeStampsData)}>
+                            <LineChart data={mapData(data)}>
                               <CartesianGrid strokeDasharray="3 3" />
                               <XAxis dataKey="date" />
                               <YAxis />

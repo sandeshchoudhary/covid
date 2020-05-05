@@ -20,16 +20,22 @@ import Summary from '../Summary';
 
 const loaderSchema = [
   {
-    width: 200
+    width: 170
   },
   {
-    width: 200
+    width: 100
+  },
+  {
+    width: 100
+  },
+  {
+    width: 100
   }
 ];
 
 const schema = [
   {
-    width: 200,
+    width: 170,
     name: 'name',
     displayName: 'Name',
     pinned: 'LEFT',
@@ -38,9 +44,19 @@ const schema = [
     })
   },
   {
-    width: 200,
+    width: 100,
     name: 'confirmed',
-    displayName: 'Confirmed Cases'
+    displayName: 'Confirmed'
+  },
+  {
+    width: 100,
+    name: 'recovered',
+    displayName: 'Recovered'
+  },
+  {
+    width: 100,
+    name: 'deceased',
+    displayName: 'Deaths'
   }
 ];
 
@@ -139,14 +155,8 @@ const Detail = (props) => {
                       buffer={10}
                       rowHeight={40}
                       schema={schema}
-                      loaderSchema={[
-                        {
-                          width: 200
-                        },
-                        {
-                          width: 200
-                        }
-                      ]}
+                      loaderSchema={loaderSchema}
+                      pagination={true}
                       data={getData(districtData ? districtData.district.districtData : [])}
                     />
                   </div>
