@@ -104,8 +104,8 @@ const IndiaStats = (props) => {
   useEffect(() => {
     if (!loading && data) {
       const { casesTimeSeries: timeData } = data.india;
-      const sDate = new Date(timeData[0].date + "2020");
-      const eDate = new Date(timeData[timeData.length - 1].date + "2020");
+      const sDate = new Date(timeData[0].date + '2020');
+      const eDate = new Date(timeData[timeData.length - 1].date + '2020');
       const newDisabledDate = { ...date, before: sDate, after: eDate };
       setDisabledDate(newDisabledDate);
     }

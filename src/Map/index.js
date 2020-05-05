@@ -3,7 +3,19 @@ import ChoroplethMap from './choropleth';
 import { MAP_TYPES, MAP_META } from './constants';
 import { formatDate, formatDateAbsolute, formatNumber } from './common-functions';
 import { formatDistance, format, parse } from 'date-fns';
-import { Heading, Message, Row, Column, Button, Subheading, Card, Text, Placeholder, PlaceholderParagraph, Spinner } from '@innovaccer/design-system';
+import {
+  Heading,
+  Message,
+  Row,
+  Column,
+  Button,
+  Subheading,
+  Card,
+  Text,
+  Placeholder,
+  PlaceholderParagraph,
+  Spinner
+} from '@innovaccer/design-system';
 import './Map.css';
 
 const mapColumnOptions = {
@@ -177,7 +189,8 @@ function MapExplorer({
 
   useEffect(() => {
     if (Object.keys(stateTestData).length) {
-      if (panelRegion) setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
+      if (panelRegion)
+        setTestObj(stateTestData.find((obj) => obj.state === panelRegion.name && obj.totaltested !== ''));
     }
   }, [panelRegion, stateTestData]);
 
@@ -225,7 +238,6 @@ function MapExplorer({
               <Spinner />
             </div>
           )}
-
         </Column>
         <Column {...infoColumnOptions}>
           <Text weight="strong">{name}</Text>
@@ -236,15 +248,14 @@ function MapExplorer({
                 <Text>Confirmed</Text>
               </div>
               <div className="pt-3 pl-5">
-                {currentMap.mapType === MAP_TYPES.COUNTRY && (
-                  panelRegion ? (
+                {currentMap.mapType === MAP_TYPES.COUNTRY &&
+                  (panelRegion ? (
                     <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.confirmed)}</Text>
                   ) : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
-                )}
+                    <Placeholder>
+                      <PlaceholderParagraph length="medium" />
+                    </Placeholder>
+                  ))}
                 {currentMap.mapType === MAP_TYPES.STATE && (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.confirmed)}</Text>
                 )}
@@ -260,10 +271,10 @@ function MapExplorer({
                   panelRegion ? (
                     <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.active)}</Text>
                   ) : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
+                    <Placeholder>
+                      <PlaceholderParagraph length="medium" />
+                    </Placeholder>
+                  )
                 ) : (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.active)}</Text>
                 )}
@@ -276,12 +287,13 @@ function MapExplorer({
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
-                  panelRegion ? (<Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>)
-                    : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
+                  panelRegion ? (
+                    <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.recovered)}</Text>
+                  ) : (
+                    <Placeholder>
+                      <PlaceholderParagraph length="medium" />
+                    </Placeholder>
+                  )
                 ) : (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.recovered)}</Text>
                 )}
@@ -294,12 +306,13 @@ function MapExplorer({
               </div>
               <div className="pt-3 pl-5">
                 {currentMap.mapType === MAP_TYPES.COUNTRY ? (
-                  panelRegion ? (<Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>)
-                    : (
-                      <Placeholder>
-                        <PlaceholderParagraph length="medium" />
-                      </Placeholder>
-                    )
+                  panelRegion ? (
+                    <Text style={{ fontSize: '28px' }}>{formatNumber(panelRegion.deaths)}</Text>
+                  ) : (
+                    <Placeholder>
+                      <PlaceholderParagraph length="medium" />
+                    </Placeholder>
+                  )
                 ) : (
                   <Text style={{ fontSize: '28px' }}>{formatNumber(currentHoveredRegion.deceased)}</Text>
                 )}

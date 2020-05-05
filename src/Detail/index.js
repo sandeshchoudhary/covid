@@ -20,17 +20,17 @@ import Summary from '../Summary';
 
 const loaderSchema = [
   {
-    width: 170,
+    width: 170
   },
   {
-    width: 100,
+    width: 100
   },
   {
-    width: 100,
+    width: 100
   },
   {
-    width: 100,
-  },
+    width: 100
+  }
 ];
 
 const schema = [

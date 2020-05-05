@@ -1,5 +1,17 @@
 import React from 'react';
-import { Card, Heading, Subheading, Row, Column, Legend, Icon, DonutChart, Placeholder, PlaceholderParagraph, Spinner } from '@innovaccer/design-system';
+import {
+  Card,
+  Heading,
+  Subheading,
+  Row,
+  Column,
+  Legend,
+  Icon,
+  DonutChart,
+  Placeholder,
+  PlaceholderParagraph,
+  Spinner
+} from '@innovaccer/design-system';
 import './Summary.css';
 
 const columnOptions = {
@@ -74,10 +86,10 @@ const Summary = (props) => {
               {stats.confirmed ? (
                 <Heading size="xl">{(+stats.confirmed).toLocaleString()}</Heading>
               ) : (
-                  <Placeholder>
-                    <PlaceholderParagraph length="medium" />
-                  </Placeholder>
-                )}
+                <Placeholder>
+                  <PlaceholderParagraph length="medium" />
+                </Placeholder>
+              )}
             </div>
             <hr />
             {getLegends()}
@@ -95,11 +107,10 @@ const Summary = (props) => {
                 colors={['primary', 'success', 'alert']}
               />
             ) : (
-                <div className="Spinner-container h-100">
-                  <Spinner />
-                </div>
-              )
-            }
+              <div className="Spinner-container h-100">
+                <Spinner />
+              </div>
+            )}
           </div>
         </Column>
       </Row>
