@@ -5,13 +5,13 @@
     "main.js.map": "/static/js/main.0fdd35ba.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.af7f4d6c.js",
     "runtime-main.js.map": "/static/js/runtime-main.af7f4d6c.js.map",
-    "static/js/2.b9fdc49e.chunk.js": "/static/js/2.b9fdc49e.chunk.js",
-    "static/js/2.b9fdc49e.chunk.js.map": "/static/js/2.b9fdc49e.chunk.js.map",
+    "static/js/2.60cfb58d.chunk.js": "/static/js/2.60cfb58d.chunk.js",
+    "static/js/2.60cfb58d.chunk.js.map": "/static/js/2.60cfb58d.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.75b853da14a7811468c58633f4c0135a.js": "/precache-manifest.75b853da14a7811468c58633f4c0135a.js",
+    "precache-manifest.9c84e904a9d626ede406cec588039e5a.js": "/precache-manifest.9c84e904a9d626ede406cec588039e5a.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.4ba28a11.chunk.css.map": "/static/css/main.4ba28a11.chunk.css.map",
-    "static/js/2.b9fdc49e.chunk.js.LICENSE.txt": "/static/js/2.b9fdc49e.chunk.js.LICENSE.txt",
+    "static/js/2.60cfb58d.chunk.js.LICENSE.txt": "/static/js/2.60cfb58d.chunk.js.LICENSE.txt",
     "static/media/breath.345b8488.svg": "/static/media/breath.345b8488.svg",
     "static/media/disinfectant.1ba907fc.svg": "/static/media/disinfectant.1ba907fc.svg",
     "static/media/distance.70610995.svg": "/static/media/distance.70610995.svg",
@@ -24,7 +24,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.af7f4d6c.js",
-    "static/js/2.b9fdc49e.chunk.js",
+    "static/js/2.60cfb58d.chunk.js",
     "static/css/main.4ba28a11.chunk.css",
     "static/js/main.0fdd35ba.chunk.js"
   ]
