@@ -22,3 +22,6 @@ npm install
 npm run start
 ```
 Open your browser and browse the url 'http://localhost:3000/'.
+
+**Contribution Guidelines**
+Feel free to raise PR on develop branch
