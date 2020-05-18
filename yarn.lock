@@ -1013,10 +1013,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@innovaccer/design-system@^1.0.0-5":
-  version "1.0.0-5"
-  resolved "http://52.35.230.55/@innovaccer%2fdesign-system/-/design-system-1.0.0-5.tgz#87ba3a6fe4b5ead8eca3a07b1739cbdb919ac761"
-  integrity sha512-wB8YTfguMXzoCiM2VtCYr0w2BskI40O2s0pZ164aGiIVIQPDAgQGg+4SpsH8cb7/1jZVKnYUzto1UGtgyKpLlg==
+"@innovaccer/design-system@^1.0.0-7":
+  version "1.0.0-7"
+  resolved "http://52.35.230.55/@innovaccer%2fdesign-system/-/design-system-1.0.0-7.tgz#a67dbfe5fc314169c4f7fd474e02b61f4aae5b68"
+  integrity sha512-xzP98c8U2hT8lTvYKT4XiwDO1zVxGKf4/F4YBC/vR6vsZs19a/Z1EbYgwZ8cGUhY/9BzudWw5Z+/8WCQtdbgxw==
   dependencies:
     "@types/classnames" "^2.2.9"
     axios "^0.19.2"
