@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  BreadcrumbsWrapper,
-  Breadcrumb,
+  Breadcrumbs,
   Link,
   Column,
   Row,
@@ -104,18 +103,18 @@ const Detail = (props) => {
   return (
     <div className="Detail-container">
       <header>
-        <BreadcrumbsWrapper heading={`${params.id}`}>
-          <Breadcrumb>
+        <div heading={`${params.id}`}>
+          <Breadcrumbs>
             <div className="Breadcrumb-link">
               <Link onClick={() => history.push(`/`)}>HOME</Link>
             </div>
-          </Breadcrumb>
-          <Breadcrumb>
+          </Breadcrumbs>
+          <Breadcrumbs>
             <div className="Breadcrumb-link">
               <Link onClick={() => history.push(`/${entity}`)}>{entity.toUpperCase()}</Link>
             </div>
-          </Breadcrumb>
-        </BreadcrumbsWrapper>
+          </Breadcrumbs>
+        </div>
       </header>
       <div className="Detail-body">
         <Row group="1" groupXL="2" groupL="2">

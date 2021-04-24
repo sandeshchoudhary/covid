@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
-    "@innovaccer/design-system": "^1.0.0-7",
+    "@innovaccer/charts": "^1.0.0",
+    "@innovaccer/design-system": "^2.0.0-6",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",

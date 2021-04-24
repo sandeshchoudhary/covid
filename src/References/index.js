@@ -1,7 +1,7 @@
 import React from 'react';
 import './References.css';
 import { useHistory } from 'react-router-dom';
-import { BreadcrumbsWrapper, Breadcrumb, Link, Heading, Table, Text } from '@innovaccer/design-system';
+import { Breadcrumbs, Link, Heading, Table, Text } from '@innovaccer/design-system';
 
 const schema = [
   {
@@ -54,13 +54,13 @@ const References = () => {
 
   return (
     <div className="References-container">
-      <BreadcrumbsWrapper heading="References">
-        <Breadcrumb>
+      <div heading="References">
+        <Breadcrumbs>
           <div className="Breadcrumb-link">
             <Link onClick={() => history.push(`/`)}>Home</Link>
           </div>
-        </Breadcrumb>
-      </BreadcrumbsWrapper>
+        </Breadcrumbs>
+      </div>
       <div className="References-table">
         <Heading>Data Sources</Heading>
         <Table

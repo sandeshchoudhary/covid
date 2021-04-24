@@ -7,11 +7,13 @@ import {
   Column,
   Legend,
   Icon,
-  DonutChart,
   Placeholder,
   PlaceholderParagraph,
   Spinner
 } from '@innovaccer/design-system';
+
+import { DonutChart } from '@innovaccer/charts';
+
 import './Summary.css';
 
 const columnOptions = {

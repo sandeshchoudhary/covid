@@ -1,8 +1,7 @@
 import React from 'react';
 import {
   Link,
-  Breadcrumb,
-  BreadcrumbsWrapper,
+  Breadcrumbs,
   Table,
   Text,
   Row,
@@ -11,7 +10,7 @@ import {
   Input,
   Card,
   Heading,
-  RangePicker,
+  DateRangePicker,
   Icon
 } from '@innovaccer/design-system';
 import { useHistory } from 'react-router-dom';
@@ -185,13 +184,13 @@ const IndiaStats = (props) => {
   return (
     <div className="Stats-container">
       <header>
-        <BreadcrumbsWrapper heading="India Statistics">
-          <Breadcrumb>
+        <div heading="India Statistics">
+          <Breadcrumbs>
             <div className="Breadcrumb-link">
               <Link onClick={() => history.push(`/`)}>HOME</Link>
             </div>
-          </Breadcrumb>
-        </BreadcrumbsWrapper>
+          </Breadcrumbs>
+        </div>
       </header>
 
       {error && <div>error...</div>}
@@ -323,7 +322,7 @@ const IndiaStats = (props) => {
                       {!loading && data && (
                         <div>
                           <div className="Calendar-container mt-4 mb-7" key={reset ? '1' : '2'}>
-                            <RangePicker
+                            <DateRangePicker
                               withInput={true}
                               startDate={disabledDate.before}
                               endDate={disabledDate.after}
