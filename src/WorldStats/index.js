@@ -1,8 +1,7 @@
 import React from 'react';
 import {
   Link,
-  Breadcrumb,
-  BreadcrumbsWrapper,
+  Breadcrumbs,
   Table,
   Text,
   Row,
@@ -120,13 +119,13 @@ const WorldStats = (props) => {
   return (
     <div className="Stats-container">
       <header className="Stats-header">
-        <BreadcrumbsWrapper heading="World Statistics">
-          <Breadcrumb>
+        <div heading="World Statistics">
+          <Breadcrumbs>
             <div className="Breadcrumb-link">
               <Link onClick={() => history.push(`/`)}>HOME</Link>
             </div>
-          </Breadcrumb>
-        </BreadcrumbsWrapper>
+          </Breadcrumbs>
+        </div>
       </header>
 
       {error && <div>error...</div>}
